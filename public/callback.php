@@ -5,12 +5,14 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
 
-$input = file_get_contents('php://input');
-$json = json_decode($input);
-$event = $json->events[0];
+
+$signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
+$body = file_get_contents("php://input");
+
+$events = $bot->parseEventRequest($body, $signature);
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-$response = $bot->replyMessage($event->replyToken, $textMessageBuilder);
+$response = $bot->replyMessage($events[0]->replyToken, $textMessageBuilder);
 if ($response->isSucceeded()) {
     echo 'Succeeded!';
     return;
