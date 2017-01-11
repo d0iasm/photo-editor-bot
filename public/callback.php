@@ -30,39 +30,54 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 
 // echo "OK";
 
+// $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
+// $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
+// // A http status of the response was '500 Internal Server Error'.
+
+// $json_string = file_get_contents('php://input');
+// $jsonObj = json_decode($json_string);
+
+// $type = $jsonObj->{"events"}[0]->{"message"}->{"type"};
+
+// //ReplyToken取得
+// $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+
+// //メッセージ以外のときは何も返さず終了
+// if($type != "text"){
+// 	exit;
+// }else{
+//     $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
+// }
+
+// $post_data = [
+// 	"replyToken" => $replyToken,
+// 	"messages" => [$response_format_text]
+// ];
+
+// $ch = curl_init("https://api.line.me/v2/bot/message/reply");
+// curl_setopt($ch, CURLOPT_POST, true);
+// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($replyToken));
+// curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+//     'Content-Type: application/json; charser=UTF-8',
+//     'Authorization: Bearer ' . CHANNEL_ACCESS_TOKEN
+//     ));
+// $result = curl_exec($ch);
+// curl_close($ch);
+
+
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
 
-$json_string = file_get_contents('php://input');
-$jsonObj = json_decode($json_string);
+$input = file_get_contents('php://input');
+$json = json_decode($input);
+$event = $json->events[0];
 
-$type = $jsonObj->{"events"}[0]->{"message"}->{"type"};
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+$response = $bot->replyMessage($event->replyToken, $textMessageBuilder);
 
-//ReplyToken取得
-$replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
-//メッセージ以外のときは何も返さず終了
-if($type != "text"){
-	exit;
-}else{
-    $text = $jsonObj->{"events"}[0]->{"message"}->{"text"};
-}
-
-$post_data = [
-	"replyToken" => $replyToken,
-	"messages" => [$response_format_text]
-];
-
-$ch = curl_init("https://api.line.me/v2/bot/message/reply");
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($replyToken));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Content-Type: application/json; charser=UTF-8',
-    'Authorization: Bearer ' . CHANNEL_ACCESS_TOKEN
-    ));
-$result = curl_exec($ch);
-curl_close($ch);
 
 ?>
