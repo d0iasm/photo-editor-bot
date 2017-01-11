@@ -1,5 +1,5 @@
 <?php
-namespace LINE\LINEBot\photo-editor-bot;
+namespace LINE\LINEBot\EchoBot;
 
 use LINE\LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
