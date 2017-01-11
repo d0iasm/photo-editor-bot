@@ -30,8 +30,8 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 
 // echo "OK";
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
+// $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
+// $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
 
 $json_string = file_get_contents('php://input');
 $jsonObj = json_decode($json_string);
@@ -57,7 +57,7 @@ $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($textMessageBuilder));
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($replyToken));
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Content-Type: application/json; charser=UTF-8',
     'Authorization: Bearer ' . CHANNEL_ACCESS_TOKEN
