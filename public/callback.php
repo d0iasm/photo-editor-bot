@@ -30,8 +30,8 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 
 // echo "OK";
 
-// $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
-// $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => CHANNEL_SECRET]);
 
 $json_string = file_get_contents('php://input');
 $jsonObj = json_decode($json_string);
