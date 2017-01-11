@@ -1,5 +1,5 @@
 <?php
-require_once('./vendor/autoload.php');
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // require_once __DIR__ . "/vendor/autoload.php";
 // A http status of the response was '500 Internal Server Error'
