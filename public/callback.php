@@ -4,19 +4,3 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
-
-$bot = new LINEBot(new CurlHTTPClient(CHANNEL_ACCESS_TOKEN), [
-            'channelSecret' => CHANNEL_SECRET,
-        ]);
-
-$body = file_get_contents("php://input");
-$events = $bot->parseEventRequest($body, $signature);
-
-foreach ($events as $event) {
-    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
-        $reply_token = $event->getReplyToken();
-        $text = $event->getText();
-        $bot->replyText($reply_token, $text);
-    }
-}
