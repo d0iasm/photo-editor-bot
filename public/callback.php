@@ -7,7 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $client = new LINEBotTiny(CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET);
 
-$replyMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("hogehoge");
+// $replyMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("hogehoge");
 
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
@@ -20,7 +20,7 @@ foreach ($client->parseEvents() as $event) {
                         'messages' => array(
                             array(
                                 'type' => 'text',
-                                'text' => $replyMessage
+                                'text' => 'hogehoge'
                             )
                         )
                     ));
