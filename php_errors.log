@@ -1,0 +1,64 @@
+[12-Jan-2017 07:11:17 UTC] PHP Fatal error:  Class 'LINE\LINEBot\EchoBot\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:11:17 UTC] PHP Stack trace:
+[12-Jan-2017 07:11:17 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:18:20 UTC] PHP Fatal error:  Class 'LINE\LINEBot\EchoBot\Setting' not found in /home/ubuntu/workspace/public/index.php on line 10
+[12-Jan-2017 07:18:20 UTC] PHP Stack trace:
+[12-Jan-2017 07:18:20 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:18:36 UTC] PHP Fatal error:  Uncaught exception 'InvalidArgumentException' with message 'Expected a ContainerInterface' in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php:78
+Stack trace:
+#0 /home/ubuntu/workspace/public/index.php(9): Slim\App->__construct(NULL)
+#1 {main}
+  thrown in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php on line 78
+[12-Jan-2017 07:18:56 UTC] PHP Fatal error:  Class 'LINE\LINEBot\EchoBot\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:18:56 UTC] PHP Stack trace:
+[12-Jan-2017 07:18:56 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:20:47 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:20:47 UTC] PHP Stack trace:
+[12-Jan-2017 07:20:47 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:24:03 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:24:03 UTC] PHP Stack trace:
+[12-Jan-2017 07:24:03 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:25:04 UTC] PHP Warning:  Division by zero in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:25:04 UTC] PHP Stack trace:
+[12-Jan-2017 07:25:04 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:25:04 UTC] PHP Fatal error:  Class 'Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:25:04 UTC] PHP Stack trace:
+[12-Jan-2017 07:25:04 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:25:24 UTC] PHP Warning:  Division by zero in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:25:24 UTC] PHP Stack trace:
+[12-Jan-2017 07:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:25:24 UTC] PHP Warning:  Division by zero in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:25:24 UTC] PHP Stack trace:
+[12-Jan-2017 07:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:25:24 UTC] PHP Fatal error:  Class 'Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:25:24 UTC] PHP Stack trace:
+[12-Jan-2017 07:25:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:26:04 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:26:04 UTC] PHP Stack trace:
+[12-Jan-2017 07:26:04 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:26:29 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:26:29 UTC] PHP Stack trace:
+[12-Jan-2017 07:26:29 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 07:29:57 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 07:29:57 UTC] PHP Stack trace:
+[12-Jan-2017 07:29:57 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 08:49:40 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 8
+[12-Jan-2017 08:49:40 UTC] PHP Stack trace:
+[12-Jan-2017 08:49:40 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 08:54:54 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Test' not found in /home/ubuntu/workspace/public/index.php on line 10
+[12-Jan-2017 08:54:54 UTC] PHP Stack trace:
+[12-Jan-2017 08:54:54 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 08:55:07 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Test' not found in /home/ubuntu/workspace/public/index.php on line 10
+[12-Jan-2017 08:55:07 UTC] PHP Stack trace:
+[12-Jan-2017 08:55:07 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 09:36:39 UTC] PHP Fatal error:  Call to undefined function LINE\LINEBot\br() in /home/ubuntu/workspace/public/index.php on line 12
+[12-Jan-2017 09:36:39 UTC] PHP Stack trace:
+[12-Jan-2017 09:36:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 09:43:18 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/ubuntu/workspace/public/index.php on line 10
+[12-Jan-2017 09:46:59 UTC] PHP Fatal error:  Uncaught exception 'RuntimeException' with message 'Unexpected data in output buffer. Maybe you have characters before an opening <?php tag?' in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php:547
+Stack trace:
+#0 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(339): Slim\App->finalize(Object(Slim\Http\Response))
+#1 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(293): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#2 /home/ubuntu/workspace/public/index.php(19): Slim\App->run()
+#3 {main}
+  thrown in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php on line 547

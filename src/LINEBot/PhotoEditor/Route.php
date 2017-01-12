@@ -1,5 +1,5 @@
 <?php
-namespace LINE\LINEBot\EchoBot;
+namespace LINE\LINEBot\PhotoEditor;
 
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;

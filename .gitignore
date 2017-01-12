@@ -1,6 +1,6 @@
-/vendor
-/.c9
-/.git
-/php.ini
+/vendor/*
+/.c9/*
+/.git/*
+php.ini
 !/logs/.gitkeep
 /logs/*
