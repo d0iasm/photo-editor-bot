@@ -7,13 +7,6 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 require_once('./LINEBotTiny.php');
 
 $client = new LINEBotTiny(CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET);
-// $event = $client->parseEvents()[0];
-
-// if($event['type'] == 'message'){
-//     if($event['type']['text'] == 'text'){
-        
-//     }
-// }
 
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
@@ -26,7 +19,7 @@ foreach ($client->parseEvents() as $event) {
                         'messages' => array(
                             array(
                                 'type' => 'text',
-                                'text' => $message['text']
+                                'text' => 'hogehoge'
                             )
                         )
                     ));
