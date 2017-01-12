@@ -7,10 +7,37 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 require_once('./LINEBotTiny.php');
 
 $client = new LINEBotTiny(CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET);
-$event = $client->parseEvents()[0];
+// $event = $client->parseEvents()[0];
 
-if($event['type'] == 'message'){
-    if($event['type']['text'] == 'text'){
+// if($event['type'] == 'message'){
+//     if($event['type']['text'] == 'text'){
         
+//     }
+// }
+
+foreach ($client->parseEvents() as $event) {
+    switch ($event['type']) {
+        case 'message':
+            $message = $event['message'];
+            switch ($message['type']) {
+                case 'text':
+                    $client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                'text' => $message['text']
+                            )
+                        )
+                    ));
+                    break;
+                default:
+                    error_log("Unsupporeted message type: " . $message['type']);
+                    break;
+            }
+            break;
+        default:
+            error_log("Unsupporeted event type: " . $event['type']);
+            break;
     }
-}
+};
