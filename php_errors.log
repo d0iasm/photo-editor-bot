@@ -62,3 +62,16 @@ Stack trace:
 #2 /home/ubuntu/workspace/public/index.php(19): Slim\App->run()
 #3 {main}
   thrown in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php on line 547
+[12-Jan-2017 10:11:40 UTC] PHP Fatal error:  Class 'Slim\Slim' not found in /home/ubuntu/workspace/public/index.php on line 11
+[12-Jan-2017 10:11:40 UTC] PHP Stack trace:
+[12-Jan-2017 10:11:40 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[12-Jan-2017 10:34:25 UTC] PHP Fatal error:  Uncaught exception 'RuntimeException' with message 'Unexpected data in output buffer. Maybe you have characters before an opening <?php tag?' in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php:547
+Stack trace:
+#0 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(339): Slim\App->finalize(Object(Slim\Http\Response))
+#1 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(293): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#2 /home/ubuntu/workspace/public/index.php(26): Slim\App->run()
+#3 {main}
+  thrown in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php on line 547
+[12-Jan-2017 10:35:27 UTC] PHP Fatal error:  Class 'Slim\App' not found in /home/ubuntu/workspace/public/index.php on line 14
+[12-Jan-2017 10:35:27 UTC] PHP Stack trace:
+[12-Jan-2017 10:35:27 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
