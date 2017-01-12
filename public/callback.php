@@ -3,7 +3,7 @@ define("CHANNEL_ACCESS_TOKEN", 'CnOpazNl3Ns+DC9fXQckj97e0O4AAgWLZw1o6Gbym0xYMgl4
 define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 
 require_once('./LINEBotTiny.php');
-require_once __DIR__ . '/../vendor/autoload.php';
+// require_once __DIR__ . '/../vendor/autoload.php';
 
 $client = new LINEBotTiny(CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET);
 

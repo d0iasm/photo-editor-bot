@@ -1,6 +1,5 @@
 {
     "require": {
-        "slim/slim": "^3.5.0",
-        "linecorp/line-bot-sdk": "*"
+
     }
 }
