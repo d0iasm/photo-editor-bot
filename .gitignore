@@ -4,3 +4,4 @@
 php.ini
 !/logs/.gitkeep
 /logs/*
+/images/*

@@ -30,8 +30,21 @@ foreach ($client->parseEvents() as $event) {
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
                             array(
-                                'type' => 'text',
-                                'text' => '画像がきた！'
+                                'type' => 'images',
+                                'originalContentUrl' => 'https://photo-editor-bot-d0iasm.c9users.io/images/camera.png',
+                                'previewImageUrl' => 'https://photo-editor-bot-d0iasm.c9users.io/images/camera.png'
+                            )
+                        )
+                    ));
+                    break;
+                case 'sticker':
+                    $client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'sticker',
+                                'packageId' => '1',
+                                'stickerId' => '1'
                             )
                         )
                     ));
