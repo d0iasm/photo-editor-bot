@@ -25,6 +25,17 @@ foreach ($client->parseEvents() as $event) {
                         )
                     ));
                     break;
+                case 'image':
+                    $client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                'text' => '画像がきた！'
+                            )
+                        )
+                    ));
+                    break;
                 default:
                     error_log("Unsupporeted message type: " . $message['type']);
                     break;
