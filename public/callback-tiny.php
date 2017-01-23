@@ -67,8 +67,8 @@ foreach ($client->parseEvents() as $event) {
                         'messages' => array(
                             array(
                                 'type' => 'images',
-                                'originalContentUrl' => 'https://photo-editor-bot.herokuapp.com/images/camera.png',
-                                'previewImageUrl' => 'https://photo-editor-bot.herokuapp.com/images/camera.png'
+                                'originalContentUrl' => 'http://www.wanpug.com/illust/illust345.png',
+                                'previewImageUrl' => 'http://www.wanpug.com/illust/illust345.png'
                             )
                         )
                     ));
