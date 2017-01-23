@@ -67,8 +67,8 @@ foreach ($client->parseEvents() as $event) {
                         'messages' => array(
                             array(
                                 'type' => 'image',
-                                'originalContentUrl' => 'http://3dicon-free.com/material/066.jpg',
-                                'previewImageUrl' => 'http://3dicon-free.com/material/066.jpg'
+                                'originalContentUrl' => 'http://resizer5.myct.jp/img/78253044849/s_camera.jpg',
+                                'previewImageUrl' => 'http://resizer5.myct.jp/img/78253044849/s_camera.jpg'
                             )
                         )
                     ));
