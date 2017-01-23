@@ -66,7 +66,7 @@ foreach ($client->parseEvents() as $event) {
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
                             array(
-                                'type' => 'images',
+                                'type' => 'image',
                                 'originalContentUrl' => 'http://www.wanpug.com/illust/illust345.png',
                                 'previewImageUrl' => 'http://www.wanpug.com/illust/illust345.png'
                             )
