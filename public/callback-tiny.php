@@ -9,6 +9,37 @@ $client = new LINEBotTiny(CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET);
 
 // $replyMessage = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("hogehoge");
 
+function replyText($event, $message){
+    return array(
+        'replyToken' => $event['replyToken'],
+        'messages' => array(
+            array(
+                'type' => 'text',
+                'text' => $message['text']
+            ),
+            array(
+                'type' => 'text',
+                'text' => 'ですね。'
+            )
+        )
+    );
+}
+
+function replySticker($event, $message){
+    $packageId = 1;
+    $stickerId = rand(100, 139);
+    return array(
+        'replyToken' => $event['replyToken'],
+        'messages' => array(
+            array(
+                'type' => 'sticker',
+                'packageId' => $packageId,
+                'stickerId' => $stickerId
+            )
+        )
+    );
+}
+
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
         case 'message':
@@ -43,16 +74,7 @@ foreach ($client->parseEvents() as $event) {
                     ));
                     break;
                 case 'sticker':
-                    $client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'sticker',
-                                'packageId' => '1',
-                                'stickerId' => '1'
-                            )
-                        )
-                    ));
+                    $client->replyMessage(replySticker($event, $message));
                     break;
                 default:
                     error_log("Unsupporeted message type: " . $message['type']);
@@ -64,19 +86,3 @@ foreach ($client->parseEvents() as $event) {
             break;
     }
 };
-
-function replyText($event, $message){
-    return array(
-        'replyToken' => $event['replyToken'],
-        'messages' => array(
-            array(
-                'type' => 'text',
-                'text' => $message['text']
-            ),
-            array(
-                'type' => 'text',
-                'text' => 'ですね。'
-            )
-        )
-    );
-}
