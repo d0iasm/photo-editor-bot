@@ -67,8 +67,8 @@ foreach ($client->parseEvents() as $event) {
                         'messages' => array(
                             array(
                                 'type' => 'image',
-                                'originalContentUrl' => 'http://www.wanpug.com/illust/illust345.png',
-                                'previewImageUrl' => 'http://www.wanpug.com/illust/illust345.png'
+                                'originalContentUrl' => 'http://3dicon-free.com/material/066.jpg',
+                                'previewImageUrl' => 'http://3dicon-free.com/material/066.jpg'
                             )
                         )
                     ));
