@@ -15,19 +15,20 @@ foreach ($client->parseEvents() as $event) {
             $message = $event['message'];
             switch ($message['type']) {
                 case 'text':
-                    $client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'text',
-                                'text' => $message['text']
-                            ),
-                            array(
-                                'type' => 'text',
-                                'text' => 'ですね。'
-                            )
-                        )
-                    ));
+                    // $client->replyMessage(array(
+                    //     'replyToken' => $event['replyToken'],
+                    //     'messages' => array(
+                    //         array(
+                    //             'type' => 'text',
+                    //             'text' => $message['text']
+                    //         ),
+                    //         array(
+                    //             'type' => 'text',
+                    //             'text' => 'ですね。'
+                    //         )
+                    //     )
+                    // ));
+                    $client->replyMessage(replyText($event, $message));
                     break;
                 case 'image':
                     $client->replyMessage(array(
@@ -63,3 +64,19 @@ foreach ($client->parseEvents() as $event) {
             break;
     }
 };
+
+function replyText($event, $message){
+    return array(
+        'replyToken' => $event['replyToken'],
+        'messages' => array(
+            array(
+                'type' => 'text',
+                'text' => $message['text']
+            ),
+            array(
+                'type' => 'text',
+                'text' => 'ですね。'
+            )
+        )
+    );
+}
