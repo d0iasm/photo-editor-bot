@@ -48,6 +48,7 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+            1 => __DIR__ . '/..' . '/slim/slim/Slim',
         ),
         'React\\Promise\\' => 
         array (
@@ -60,6 +61,8 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         'LINE\\' => 
         array (
             0 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
+            1 => __DIR__ . '/../..' . '/src',
+            2 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
         ),
         'Interop\\Container\\' => 
         array (

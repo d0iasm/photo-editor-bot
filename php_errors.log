@@ -75,3 +75,26 @@ Stack trace:
 [12-Jan-2017 10:35:27 UTC] PHP Fatal error:  Class 'Slim\App' not found in /home/ubuntu/workspace/public/index.php on line 14
 [12-Jan-2017 10:35:27 UTC] PHP Stack trace:
 [12-Jan-2017 10:35:27 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[24-Jan-2017 08:11:01 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 10
+[24-Jan-2017 08:11:01 UTC] PHP Stack trace:
+[24-Jan-2017 08:11:01 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[24-Jan-2017 08:11:27 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 10
+[24-Jan-2017 08:11:27 UTC] PHP Stack trace:
+[24-Jan-2017 08:11:27 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[24-Jan-2017 08:16:21 UTC] PHP Fatal error:  Class 'LINE\LINEBot\PhotoEditor\Setting' not found in /home/ubuntu/workspace/public/index.php on line 10
+[24-Jan-2017 08:16:21 UTC] PHP Stack trace:
+[24-Jan-2017 08:16:21 UTC] PHP   1. {main}() /home/ubuntu/workspace/public/index.php:0
+[24-Jan-2017 08:23:50 UTC] PHP Fatal error:  Uncaught exception 'RuntimeException' with message 'Unexpected data in output buffer. Maybe you have characters before an opening <?php tag?' in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php:547
+Stack trace:
+#0 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(339): Slim\App->finalize(Object(Slim\Http\Response))
+#1 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(293): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#2 /home/ubuntu/workspace/public/index.php(16): Slim\App->run()
+#3 {main}
+  thrown in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php on line 547
+[24-Jan-2017 08:24:34 UTC] PHP Fatal error:  Uncaught exception 'RuntimeException' with message 'Unexpected data in output buffer. Maybe you have characters before an opening <?php tag?' in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php:547
+Stack trace:
+#0 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(339): Slim\App->finalize(Object(Slim\Http\Response))
+#1 /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php(293): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#2 /home/ubuntu/workspace/public/index.php(18): Slim\App->run()
+#3 {main}
+  thrown in /home/ubuntu/workspace/vendor/slim/slim/Slim/App.php on line 547

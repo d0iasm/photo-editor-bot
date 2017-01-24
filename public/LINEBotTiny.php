@@ -117,8 +117,8 @@ class LINEBotTiny
         // header('Authorization: Bearer ' . $this->channelAccessToken);
         // readfile('https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content');
         
-        $image = file_get_contents('https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content');
-        file_put_contents('../images/dl.jpg', $image);
+        // $image = file_get_contents('https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content');
+        // file_put_contents('../images/dl.jpg', $image);
     }
     private function sign($body)
     {

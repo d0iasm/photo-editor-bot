@@ -2,5 +2,11 @@
     "require": {
         "slim/slim": "^3.5.0",
         "linecorp/line-bot-sdk": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "LINE\\": ["vendor/linecorp/line-bot-sdk/src", "src/"],
+            "Slim\\": "vendor/slim/slim/Slim"
+        }
     }
 }
