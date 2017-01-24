@@ -40,6 +40,19 @@ function replySticker($event, $message){
     );
 }
 
+function replyImage($event, $message){
+    return array(
+        'replyToken' => $event['replyToken'],
+        'messages' => array(
+            array(
+                'type' => 'image',
+                'originalContentUrl' => 'http://resizer5.myct.jp/img/78253044849/s_camera.jpg',
+                'previewImageUrl' => 'http://resizer5.myct.jp/img/78253044849/s_camera.jpg'
+            )
+        )
+    );
+}
+
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
         case 'message':
@@ -62,16 +75,7 @@ foreach ($client->parseEvents() as $event) {
                     $client->replyMessage(replyText($event, $message));
                     break;
                 case 'image':
-                    $client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'image',
-                                'originalContentUrl' => 'http://resizer5.myct.jp/img/78253044849/s_camera.jpg',
-                                'previewImageUrl' => 'http://resizer5.myct.jp/img/78253044849/s_camera.jpg'
-                            )
-                        )
-                    ));
+                    $client->replyMessage(getImage($message['id']));
                     break;
                 case 'sticker':
                     $client->replyMessage(replySticker($event, $message));
