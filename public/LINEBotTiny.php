@@ -97,21 +97,28 @@ class LINEBotTiny
     }
     public function getImage($messageId)
     {
-        $header = array(
-            'Authorization: Bearer ' . $this->channelAccessToken
-        );
-        $context = stream_context_create(array(
-            "http" => array(
-                "method" => "GET",
-                "header" => implode("\r\n", $header)
-            ),
-        ));
-        $url = 'https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content';
-        $response = file_get_contents($url, false, $context);
-        if (strpos($http_response_header[0], '200') === false) {
-            http_response_code(500);
-            error_log("Request failed: " . $response);
-        }
+        // $header = array(
+        //     'Authorization: Bearer ' . $this->channelAccessToken
+        // );
+        // $context = stream_context_create(array(
+        //     "http" => array(
+        //         "method" => "GET",
+        //         "header" => implode("\r\n", $header)
+        //     ),
+        // ));
+        // $url = 'https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content';
+        // $response = file_get_contents($url, false, $context);
+        // if (strpos($http_response_header[0], '200') === false) {
+        //     http_response_code(500);
+        //     error_log("Request failed: " . $response);
+        // }
+        // return $response;
+        
+        // header('Authorization: Bearer ' . $this->channelAccessToken);
+        // readfile('https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content');
+        
+        $image = file_get_contents('https://api.line.me/v2/bot/message/' . urlencode($messageId) . '/content');
+        file_put_contents('../images/dl.jpg', $image);
     }
     private function sign($body)
     {

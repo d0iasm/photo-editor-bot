@@ -75,7 +75,7 @@ foreach ($client->parseEvents() as $event) {
                     $client->replyMessage(replyText($event, $message));
                     break;
                 case 'image':
-                    $client->replyMessage(getImage($message['id']));
+                    $client->getImage($message['id']);
                     break;
                 case 'sticker':
                     $client->replyMessage(replySticker($event, $message));
