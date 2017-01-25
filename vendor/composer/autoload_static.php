@@ -22,7 +22,12 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'L' => 
         array (
@@ -54,14 +59,23 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
         'LINE\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
-            1 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
+            0 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
+            1 => __DIR__ . '/../..' . '/src',
+            2 => __DIR__ . '/..' . '/linecorp/line-bot-sdk/src',
         ),
         'Interop\\Container\\' => 
         array (

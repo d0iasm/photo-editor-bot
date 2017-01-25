@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "^3.5.0",
+        "monolog/monolog": "^1.21.0",
         "linecorp/line-bot-sdk": "*"
     },
     "autoload": {
