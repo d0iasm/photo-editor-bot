@@ -4,3 +4,4 @@ define("CHANNEL_SECRET", '776bcf263a10cf4cb30e1f2feeb33013');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(CHANNEL_ACCESS_TOKEN);
