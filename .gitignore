@@ -5,3 +5,4 @@ php.ini
 !/logs/.gitkeep
 /logs/*
 /images/*
+/php_errors.log
