@@ -5,21 +5,21 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('CnOpazNl3Ns+DC9fXQckj97e0O4AAgWLZw1o6Gbym0xYMgl4gh4fIuf7k7ywc36LRCQ0gytM7hyBBepk1bfglDpgIqGO+aPlhfh3byhIi1yiqJ5vOjDs8l+hjYWhGVczYi4XIzsZYhDM1+W4y62jVwdB04t89/1O/w1cDnyilFU=');
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '776bcf263a10cf4cb30e1f2feeb33013']);
+// $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('CnOpazNl3Ns+DC9fXQckj97e0O4AAgWLZw1o6Gbym0xYMgl4gh4fIuf7k7ywc36LRCQ0gytM7hyBBepk1bfglDpgIqGO+aPlhfh3byhIi1yiqJ5vOjDs8l+hjYWhGVczYi4XIzsZYhDM1+W4y62jVwdB04t89/1O/w1cDnyilFU=');
+// $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '776bcf263a10cf4cb30e1f2feeb33013']);
 
 // $signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 // $body = file_get_contents("php://input");
 
 // $events = $bot->parseEventRequest($body, $signature);
 
-$input = file_get_contents('php://input');
-$json = json_decode($input);
-$event = $json->events[0];
+// $input = file_get_contents('php://input');
+// $json = json_decode($input);
+// $event = $json->events[0];
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+// $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
 
-$bot->replyMessage($event->replyToken, $textMessageBuilder);
+// $bot->replyMessage($event->replyToken, $textMessageBuilder);
 
 // $app = new \Slim\App;
 // $app->post('/add/example2', function () {
