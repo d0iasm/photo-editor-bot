@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit51ccd2115bb45f999793131f41449869
 {
     public static $files = array (
-        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
     );
 
@@ -15,10 +14,6 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         'S' => 
         array (
             'Slim\\' => 5,
-        ),
-        'R' => 
-        array (
-            'React\\Promise\\' => 14,
         ),
         'P' => 
         array (
@@ -37,12 +32,6 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         array (
             'Interop\\Container\\' => 18,
         ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Stream\\' => 18,
-            'GuzzleHttp\\Ring\\' => 16,
-            'GuzzleHttp\\' => 11,
-        ),
         'F' => 
         array (
             'FastRoute\\' => 10,
@@ -54,10 +43,6 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
             1 => __DIR__ . '/..' . '/slim/slim/Slim',
-        ),
-        'React\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/promise/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -80,18 +65,6 @@ class ComposerStaticInit51ccd2115bb45f999793131f41449869
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
-        ),
-        'GuzzleHttp\\Stream\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/streams/src',
-        ),
-        'GuzzleHttp\\Ring\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/ringphp/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
         'FastRoute\\' => 
         array (
