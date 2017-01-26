@@ -55,8 +55,9 @@ class Route
                     $bot->replyText($event->getReplyToken(), $eventType);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof StickerMessage) {
-                    $replyText = new TextMessageBuilder('スタンプだ');
-                    $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                    // $replyText = new TextMessageBuilder('スタンプだ');
+                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+                    $resp = $bot->replyText($event->getReplyToken(), $textMessageBuilder);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof ImageMessage){
                     $replyText = '画像だ';
