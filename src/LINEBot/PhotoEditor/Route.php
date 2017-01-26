@@ -5,6 +5,8 @@ use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use LINE\LINEBot\Event\MessageEvent\StickerMessage;
+use LINE\LINEBot\Event\MessageEvent\ImageMessage;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
 use LINE\LINEBot\Exception\UnknownEventTypeException;
@@ -55,6 +57,9 @@ class Route
                     $replyText = 'スタンプだ';
                     $resp = $bot->replyText($event->getReplyToken(), $replyText);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                }else if($event instanceof ImageMessage){
+                    $replyText = '画像だ';
+                    $bot->replyText($event->getReplyToken(), $replyText);
                 }
                 // $replyText = $event->getText();
                 // $logger->info('Reply text: ' . $replyText);
