@@ -11,6 +11,9 @@ use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
 use LINE\LINEBot\Exception\UnknownEventTypeException;
 use LINE\LINEBot\Exception\UnknownMessageTypeException;
+use LINE\LINEBot\MessageBuilder;
+use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class Route
 {
@@ -37,15 +40,13 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
+            
             foreach ($events as $event) {
                 if (!($event instanceof MessageEvent)) {
                     $logger->info('Non message event has come');
                     continue;
                 }
-                // if (!($event instanceof TextMessage)) {
-                //     $logger->info('Non text message has come');
-                //     continue;
-                // }
+
                 if($event instanceof TextMessage){
                     $replyText = $event->getText();
                     // $eventType = $event->getMessageType();
@@ -54,7 +55,7 @@ class Route
                     $bot->replyText($event->getReplyToken(), $eventType);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof StickerMessage) {
-                    $replyText = 'スタンプだ';
+                    $replyText = new TextMessageBuilder('スタンプだ');
                     $resp = $bot->replyText($event->getReplyToken(), $replyText);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof ImageMessage){
