@@ -51,8 +51,8 @@ class Route
                     $resp = $bot->replyText($event->getReplyToken(), $replyText);
                     $bot->replyText($event->getReplyToken(), $eventType);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
-                }else if($event instanceof ImageMessage) {
-                    $replyText = '画像だ';
+                }else if($event instanceof StickerMessage) {
+                    $replyText = 'スタンプだ';
                     $resp = $bot->replyText($event->getReplyToken(), $replyText);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }
