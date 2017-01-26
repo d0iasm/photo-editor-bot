@@ -40,14 +40,23 @@ class Route
                     $logger->info('Non message event has come');
                     continue;
                 }
-                if (!($event instanceof TextMessage)) {
-                    $logger->info('Non text message has come');
-                    continue;
+                // if (!($event instanceof TextMessage)) {
+                //     $logger->info('Non text message has come');
+                //     continue;
+                // }
+                if($event instanceof TextMessage){
+                    $replyText = $event->getText();
+                    $logger->info('Reply text: ' . $replyText);
+                    $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                    $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                }else if($event instanceof ImageMessage) {
+                    $replyText = '画像だ';
+                    $bot->replyText($event->getReplyToken(), $replyText);
                 }
-                $replyText = $event->getText();
-                $logger->info('Reply text: ' . $replyText);
-                $resp = $bot->replyText($event->getReplyToken(), $replyText);
-                $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                // $replyText = $event->getText();
+                // $logger->info('Reply text: ' . $replyText);
+                // $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                // $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
             $res->write('OK');
             return $res;
