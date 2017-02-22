@@ -40,7 +40,7 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
-            
+
             foreach ($events as $event) {
                 if (!($event instanceof MessageEvent)) {
                     $logger->info('Non message event has come');
@@ -55,7 +55,7 @@ class Route
                     $bot->replyText($event->getReplyToken(), $eventType);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof StickerMessage) {
-                    $replyText = new TextMessageBuilder('スタンプだ');
+                    $replyText = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('スタンプだ');
                     $bot->replyText($event->getReplyToken(), $replyText);
                 }else if($event instanceof ImageMessage){
                     $replyText = '画像だ';
