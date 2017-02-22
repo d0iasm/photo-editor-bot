@@ -15,8 +15,6 @@ use LINE\LINEBot\MessageBuilder;
 use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
 class Route
 {
     public function register(\Slim\App $app)
@@ -50,8 +48,8 @@ class Route
                 }
 
                 if($event instanceof TextMessage){
-                    // $replyText = $event->getText();
-                    $replyText = new TextMessageBuilder($event->getText());
+                    $replyText = $event->getText();
+                    // $replyText = new TextMessageBuilder($event->getText());
                     // $eventType = $event->getMessageType();
                     $logger->info('Reply text: ' . $replyText);
                     $resp = $bot->replyText($event->getReplyToken(), $replyText);
@@ -59,7 +57,7 @@ class Route
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof StickerMessage) {
                     $replyText = new TextMessageBuilder('スタンプだ');
-                    $bot->replyText($event->getReplyToken(), $replyText);
+                    $response = $bot->replyMessage($event->getReplyToken(), $textText);
                 }else if($event instanceof ImageMessage){
                     $replyText = '画像だ';
                     $bot->replyText($event->getReplyToken(), $replyText);
