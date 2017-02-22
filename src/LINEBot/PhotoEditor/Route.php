@@ -57,7 +57,7 @@ class Route
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof StickerMessage) {
                     $replyText = new TextMessageBuilder('スタンプだ');
-                    $response = $bot->replyMessage($event->getReplyToken(), $textText);
+                    $response = $bot->replyMessage($event->getReplyToken(), $replyText);
                 }else if($event instanceof ImageMessage){
                     $replyText = '画像だ';
                     $bot->replyText($event->getReplyToken(), $replyText);
