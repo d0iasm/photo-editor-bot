@@ -15,6 +15,8 @@ use LINE\LINEBot\MessageBuilder;
 use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 class Route
 {
     public function register(\Slim\App $app)
