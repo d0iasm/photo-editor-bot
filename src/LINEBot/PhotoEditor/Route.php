@@ -48,7 +48,8 @@ class Route
                 }
 
                 if($event instanceof TextMessage){
-                    $replyText = $event->getText();
+                    // $replyText = $event->getText();
+                    $replyText = new TextMessageBuilder($event->getText());
                     // $eventType = $event->getMessageType();
                     $logger->info('Reply text: ' . $replyText);
                     $resp = $bot->replyText($event->getReplyToken(), $replyText);
