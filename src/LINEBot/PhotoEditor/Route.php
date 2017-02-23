@@ -5,7 +5,6 @@ use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
-use LINE\LINEBot\Event\MessageEvent\StickerMessage;
 use LINE\LINEBot\Event\MessageEvent\ImageMessage;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
@@ -14,6 +13,11 @@ use LINE\LINEBot\Exception\UnknownMessageTypeException;
 use LINE\LINEBot\MessageBuilder;
 use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\TemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route
 {
@@ -60,9 +64,17 @@ class Route
                     $bot->replyText($event->getReplyToken(), $eventType);
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof TextMessage) {
-                    $replyText = $event->getText();
-                    // $bot->replyMessage($event->getReplyToken(), $replyText);
-                    $bot->replyText($event->getReplyToken(), $replyText);
+                    $getText = $event->getText();
+                    if($getText == 'Help' || $getText == 'ヘルプ'){
+                      $act1 = new MessageTemplateActionBuilder('labelHoge', 'textHoge1');
+                      $act2 = new MessageTemplateActionBuilder('labelHoge', 'textHoge2');
+                      $template = new ConfirmTemplateBuilder('tempHoge', [$act1, $act2]);
+                      $templateMessage = new TemplateMessageBuilder('tempMsgHoge', $template);
+                      $bot->replyMessage($event->getReplyToken(), $TemplateMessageBuilder);
+                    }else{
+                      $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニュー、または Help と送信');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }
                 }else{
                     $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニュー、または Help と送信');
                     $bot->replyMessage($event->getReplyToken(), $replyText);
