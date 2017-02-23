@@ -52,11 +52,17 @@ class Route
                 }
 
                 if($event instanceof ImageMessage){
-                    $rowImage = $bot->getMessageContent($event->getMessageId());
+                    $binaryImage = $bot->getMessageContent($event->getMessageId());
+                    $resourceImage = imagecreatefromstring($binaryImage);
+                    if ($resourceImage !== false) {
+                      header('Content-Type: image/png');
+                      imagepng($resourceImage);
+                      imagedestroy($resourceImage);
+                    }
 
-                    $editedImage = $rowImage;
                     // $editedImage = new ImageMessageBuilder();
-                    $bot->replyMessage($event->getReplyToken(), $editedImage);
+                    // $editedImage = new ImageMessageBuilder();
+                    // $bot->replyMessage($event->getReplyToken(), $editedImage);
 
 
                 }else if($event instanceof TextMessage) {
