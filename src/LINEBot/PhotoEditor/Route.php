@@ -66,11 +66,13 @@ class Route
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if($getText == 'Help' || $getText == 'ヘルプ'){
-                      $act1 = new MessageTemplateActionBuilder('labelHoge', 'textHoge1');
-                      $act2 = new MessageTemplateActionBuilder('labelHoge', 'textHoge2');
-                      $template = new ConfirmTemplateBuilder('tempHoge', [$act1, $act2]);
-                      $templateMessage = new TemplateMessageBuilder('tempMsgHoge', $template);
-                      $bot->replyMessage($event->getReplyToken(), $TemplateMessageBuilder);
+                      // $act1 = new MessageTemplateActionBuilder('labelHoge', 'textHoge1');
+                      // $act2 = new MessageTemplateActionBuilder('labelHoge', 'textHoge2');
+                      // $template = new ConfirmTemplateBuilder('tempHoge', [$act1, $act2]);
+                      // $templateMessage = new TemplateMessageBuilder('tempMsgHoge', $template);
+                      // $bot->replyMessage($event->getReplyToken(), $TemplateMessageBuilder);
+                      $replyText = new TextMessageBuilder('ヘルプきた');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else{
                       $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニュー、または Help と送信');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
