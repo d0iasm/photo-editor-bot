@@ -59,8 +59,8 @@ class Route
                     //   imagejpeg($resourceImage, '../../../tmp/test.jpg');
                     //   imagedestroy($resourceImage);
                     // }
-                    header('Content-Type: image/jpeg');
-                    imagejpeg($binaryImage, '../../../tmp/bi_img.png');
+                    // header('Content-Type: image/jpeg');
+                    // imagejpeg($binaryImage, '../../../tmp/bi_img.png');
                     // file_put_contents('../../../tmp/bi_img.png', $binaryImage);
                     // file_put_contents('../../../tmp/re_img.png', $resourceImage);
 
