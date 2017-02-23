@@ -52,22 +52,18 @@ class Route
                 }
 
                 if($event instanceof ImageMessage){
-                    // $replyText = new TextMessageBuilder('スタンプだ');
-                    $replyImage = $bot->getMessageContent($event->getMessageId());
+                    $rowImage = $bot->getMessageContent($event->getMessageId());
 
-                    $response = $bot->replyMessage($event->getReplyToken(), $replyImage);
+                    $editedImage = $rowImage;
+                    // $editedImage = new ImageMessageBuilder();
+                    $bot->replyMessage($event->getReplyToken(), $editedImage);
 
-                    // $replyText = new TextMessageBuilder($event->getText());
-                    // $eventType = $event->getMessageType();
-                    $logger->info('Reply text: ' . $replyText);
-                    $resp = $bot->replyText($event->getReplyToken(), $replyText);
-                    $bot->replyText($event->getReplyToken(), $eventType);
-                    $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if($getText == 'help' || $getText == 'Help' || $getText == 'HELP' || $getText == 'ヘルプ'){
-                      $act1 = new MessageTemplateActionBuilder('labelHoge', 'textHoge1');
-                      $act2 = new MessageTemplateActionBuilder('labelHoge', 'textHoge2');
+                      $act1 = new MessageTemplateActionBuilder('labelHoge1', 'textHoge1');
+                      $act2 = new MessageTemplateActionBuilder('labelHoge2', 'textHoge2');
                       $template = new ConfirmTemplateBuilder('tempHoge', [$act1, $act2]);
                       $templateMessage = new TemplateMessageBuilder('tempMsgHoge', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
