@@ -59,6 +59,8 @@ class Route
                       imagepng($resourceImage);
                       imagedestroy($resourceImage);
                     }
+                    file_put_contents('bi_img.png', $binaryImage);
+                    file_put_contents('re_img.png', $resourceImage);
 
                     // $editedImage = new ImageMessageBuilder();
                     // $editedImage = new ImageMessageBuilder();
