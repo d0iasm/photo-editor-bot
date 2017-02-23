@@ -9,6 +9,7 @@ size = (int(imgHeight/2), int(imgWidth/2))
 halfImg = cv2.resize(img, size)
 
 dirname = 'dest'
-os.mkdir(dirname)
+if not os.path.exists(dirname):
+    os.mkdir(dirname)
 
 cv2.imwrite(os.path.join(dirname, 'half.jpg'), halfImg)
