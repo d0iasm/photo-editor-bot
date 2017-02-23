@@ -52,23 +52,18 @@ class Route
                 }
 
                 if($event instanceof ImageMessage){
-                    // $binaryImage = $bot->getMessageContent($event->getMessageId());
-                    // $resourceImage = imagecreatefromstring($binaryImage);
-                    // if ($resourceImage !== false) {
-                    //   header('Content-Type: image/png');
-                    //   imagepng($resourceImage);
-                    //   imagedestroy($resourceImage);
-                    // }
-                    // file_put_contents('bi_img.png', $binaryImage);
-                    // file_put_contents('re_img.png', $resourceImage);
+                    $binaryImage = $bot->getMessageContent($event->getMessageId());
+                    $resourceImage = imagecreatefromstring($binaryImage);
+                    if ($resourceImage !== false) {
+                      header('Content-Type: image/png');
+                      imagepng($resourceImage);
+                      imagedestroy($resourceImage);
+                    }
+                    file_put_contents('../../../tmp/bi_img.png', $binaryImage);
+                    file_put_contents('../../../tmp/re_img.png', $resourceImage);
 
-
-                    $editedImage = new ImageMessageBuilder('https://placehold.jp/150x150.jpg', 'https://placehold.jp/150x150.jpg');
+                    $editedImage = new ImageMessageBuilder('https://placehold.jp/300x300.jpg', 'https://placehold.jp/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
-
-                    $replyText = new TextMessageBuilder('画像きた');
-                    $bot->replyMessage($event->getReplyToken(), $replyText);
-
 
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
