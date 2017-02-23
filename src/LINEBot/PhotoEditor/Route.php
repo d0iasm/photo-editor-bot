@@ -59,8 +59,8 @@ class Route
                     //   imagejpeg($resourceImage, '../../../tmp/test.jpg');
                     //   imagedestroy($resourceImage);
                     // }
-                    file_put_contents('../../../tmp/bi_img.png', $binaryImage);
-                    file_put_contents('../../../tmp/re_img.png', $resourceImage);
+                    // file_put_contents('../../../tmp/bi_img.png', $binaryImage);
+                    // file_put_contents('../../../tmp/re_img.png', $resourceImage);
 
                     $editedImage = new ImageMessageBuilder('https://placehold.jp/300x300.jpg', 'https://placehold.jp/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
