@@ -1,5 +1,4 @@
 <?php
-  echo('hoge');
   $fullPath ='python ../src/python/testPython.py abcd 1234';
   exec($fullPath, $outpara);
   echo '<PRE>';
