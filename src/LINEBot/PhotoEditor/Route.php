@@ -62,7 +62,7 @@ class Route
                     // file_put_contents('bi_img.png', $binaryImage);
                     // file_put_contents('re_img.png', $resourceImage);
 
-                    $editedImage = new ImageMessageBuilder('../python/dest/half.jpg', '../python/dest/half.jpg');
+                    $editedImage = new ImageMessageBuilder('https://placehold.jp/150x150.jpg', 'https://placehold.jp/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
 
 
