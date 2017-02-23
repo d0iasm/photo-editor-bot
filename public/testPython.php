@@ -1,5 +1,5 @@
 <?php
-  $fullPath ='python ../src/python/testPython.py abcd 1234';
+  $fullPath ='python ../src/python/testPython.py';
   exec($fullPath, $outpara);
   echo '<PRE>';
   var_dump($fullPath);
