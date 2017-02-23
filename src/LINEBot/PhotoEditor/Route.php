@@ -52,8 +52,8 @@ class Route
                 }
 
                 if($event instanceof ImageMessage){
-                    $binaryImage = $bot->getMessageContent($event->getMessageId());
-                    $resourceImage = imagecreatefromstring($binaryImage);
+                    // $binaryImage = $bot->getMessageContent($event->getMessageId());
+                    // $resourceImage = imagecreatefromstring($binaryImage);
                     // if ($resourceImage !== false) {
                     //   header('Content-Type: image/png');
                     //   imagepng($resourceImage);
