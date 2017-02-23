@@ -62,6 +62,9 @@ class Route
                     // file_put_contents('bi_img.png', $binaryImage);
                     // file_put_contents('re_img.png', $resourceImage);
 
+                    $replyText = new TextMessageBuilder('画像きた');
+                    $bot->replyMessage($event->getReplyToken(), $replyText);
+
                     $editedImage = new ImageMessageBuilder('https://placehold.jp/150x150.jpg', 'https://placehold.jp/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
 
