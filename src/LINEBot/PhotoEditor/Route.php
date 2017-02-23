@@ -55,14 +55,14 @@ class Route
                     $binaryImage = $bot->getMessageContent($event->getMessageId());
                     // $resourceImage = imagecreatefromstring($binaryImage);
                     // if ($resourceImage !== false) {
-                      // header('Content-Type: image/png');
-                      // imagepng($resourceImage);
-                      // imagedestroy($resourceImage);
+                    //   header('Content-Type: image/png');
+                    //   imagepng($resourceImage);
+                    //   imagedestroy($resourceImage);
                     // }
                     // file_put_contents('../../../tmp/bi_img.png', $binaryImage);
                     // file_put_contents('../../../tmp/re_img.png', $resourceImage);
 
-                    $editedImage = new ImageMessageBuilder('https://placehold.jp/300x300.jpg', 'https://placehold.jp/150x150.jpg');
+                    $editedImage = new ImageMessageBuilder('https://placehold.jp/2000x2000.jpg', 'https://placehold.jp/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                 }else if($event instanceof TextMessage) {
