@@ -11,7 +11,5 @@ if __name__=='__main__':
         print ('result is NG!')
         return 'hoge'
 
-        
-
 
     print(editImage())
