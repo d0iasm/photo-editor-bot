@@ -1,4 +1,5 @@
 import os
+import sys
 import cv2
 
 img = cv2.imread('../../images/camera.png', cv2.IMREAD_COLOR)
