@@ -50,7 +50,7 @@ class Route
                 if($event instanceof ImageMessage){
                     // $replyText = new TextMessageBuilder('スタンプだ');
                     $replyImage = $bot->getMessageContent($event->getMessageId());
-                    
+
                     $response = $bot->replyMessage($event->getReplyToken(), $replyImage);
 
                     // $replyText = new TextMessageBuilder($event->getText());
@@ -61,10 +61,10 @@ class Route
                     $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
                 }else if($event instanceof TextMessage) {
                     $replyText = $event->getText();
-                    $bot->replyMessage($event->getReplyToken(), $replyText);
-                    // $bot->replyText($event->getReplyToken(), $replyText);
+                    // $bot->replyMessage($event->getReplyToken(), $replyText);
+                    $bot->replyText($event->getReplyToken(), $replyText);
                 }else{
-                    $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニューまたは Help と送信');
+                    $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニュー、または Help と送信');
                     $bot->replyMessage($event->getReplyToken(), $replyText);
                 }
             }
