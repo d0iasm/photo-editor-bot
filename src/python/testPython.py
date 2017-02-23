@@ -9,7 +9,5 @@ if __name__=='__main__':
         print ('parameter2 is' + sys.argv[2])
         print ('result is OK!')
         print ('result is NG!')
-        return 'hoge'
 
-
-    print(editImage())
+    editImage()
