@@ -57,6 +57,9 @@ class Route
                     $s3 = \Aws\S3\S3Client::factory();
                     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
+                    $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
+                    $bot->replyMessage($event->getReplyToken(), $editedImage);
+
                     $upload = $s3->upload($bucket, 'hoge.jpg', $binaryImage, 'public-read');
 
                     // try {
