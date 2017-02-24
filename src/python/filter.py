@@ -1,7 +1,6 @@
 import os
 import sys
 import numpy
-from PIL import Image
 import cv2
 import boto3
 import botocore
@@ -26,58 +25,38 @@ class Filter(object):
     # s3 = boto3.resource('s3')
     # bucket = s3.Bucket(S3_BUCKET)
 
-    # print(bucket.name)
+    # response = s3client.list_objects(
+    #     Bucket = S3_BUCKET,
+    #     Prefix = 'hoge'
+    # )
 
-    # s3client = boto3.Session().client('s3')
+    # if 'Contents' in response:
+    #     keys = [content['Key'] for content in response['Contents']]
+    #     print(keys)
 
-    response = s3client.list_objects(
-        Bucket = S3_BUCKET,
-        Prefix = 'hoge'
-    )
-
-    if 'Contents' in response:
-        keys = [content['Key'] for content in response['Contents']]
-        print(keys)
-
-    data = s3client.get_object(Bucket=S3_BUCKET, Key='pome.jpg')
-    # print(data['Body'])
-    # body = data['Body'].read()
-    # print(type(body))
-    # print(data['Body'].read())
-    # infile = open(data['Body'].read(), 'rb')
-    # cv2.imencode(Binary(data['Body'].read()), cv2.IMREAD_COLOR)
-    # imgArray = numpy.asarray(data['Body'].read())
-    # data_np = numpy.array(data['Body'].read(), dtype=numpy.uint8)
-    img = numpy.asarray(bytearray(data['Body'].read()), dtype="uint8")
-    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
-
-    # rowImage = []
-    # for key in keys:
-    #     fp = StringIO()
-    #     key.get_contents_to_file(fp)
-    #     fp.seek(0)
-    #
-    #     print (fp.getvalue())
-    #     fp.close()
 
     # img = cv2.imread('../../images/camera.png', cv2.IMREAD_COLOR)
 
-    imgHeight, imgWidth = img.shape[:2]
-    size = (int(imgHeight/2), int(imgWidth/2))
+    def edit_image():
+        raw_data = s3client.get_object(Bucket=S3_BUCKET, Key='raw_image.jpg')
+        img = numpy.asarray(bytearray(raw_data['Body'].read()), dtype="uint8")
+        img = cv2.imdecode(img, cv2.IMREAD_COLOR)
 
-    halfImg = cv2.resize(img, size)
+        imgHeight, imgWidth = img.shape[:2]
+        size = (int(imgHeight/2), int(imgWidth/2))
 
-    dirname = 'dest'
-    if not os.path.exists(dirname):
-        os.mkdir(dirname)
+        halfImg = cv2.resize(img, size)
 
-    cv2.imwrite(os.path.join(dirname, 'half.jpg'), halfImg)
+        dirname = 'dest'
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+
+        cv2.imwrite(os.path.join(dirname, 'edited_image.jpg'), halfImg)
 
     def send_edited_image():
-        data = open('dest/half.jpg', 'rb')
-        print(data)
-        # s3.Bucket(S3_BUCKET).put_object(Key='test.jpg', Body=data)
-        s3client.put_object(Bucket=S3_BUCKET, Key='test.jpg', Body=data)
+        data = open('dest/edited_image.jpg', 'rb')
+        s3client.put_object(Bucket=S3_BUCKET, Key='edited_image.jpg', Body=data)
         data.close()
 
+    edit_image()
     send_edited_image()

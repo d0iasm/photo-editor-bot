@@ -58,13 +58,16 @@ class Route
 
                     $binaryImage = $bot->getMessageContent($event->getMessageId());
                     if ($binaryImage->isSucceeded()) {
-                      $tempfile = tmpfile();
-                      fwrite($tempfile, $binaryImage->getRawBody());
+                      $tempFile = tmpfile();
+                      fwrite($tempFile, $binaryImage->getRawBody());
 
-                      $upload = $s3->upload($bucket, 'rowImage.jpg', $tempfile, 'public-read');
+                      $upload = $s3->upload($bucket, 'row_image.jpg', $tempFile, 'public-read');
 
-                      $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
-                      $bot->replyMessage($event->getReplyToken(), $uploadURL);
+                      // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
+                      // $bot->replyMessage($event->getReplyToken(), $uploadURL);
+
+                      $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edit_image.jpg');
+                      $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                     } else {
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
