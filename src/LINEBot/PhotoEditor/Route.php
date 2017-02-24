@@ -64,7 +64,7 @@ class Route
                     // file_put_contents('../../../tmp/bi_img.png', $binaryImage);
                     // file_put_contents('../../../tmp/re_img.png', $resourceImage);
 
-                    $editedImage = new ImageMessageBuilder('https://placehold.jp/300x300.jpg', 'https://placehold.jp/150x150.jpg');
+                    $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                 }else if($event instanceof TextMessage) {
