@@ -1,6 +1,6 @@
 import os
 import sys
-# import cv2
+import cv2
 
 def editImage():
     pass
