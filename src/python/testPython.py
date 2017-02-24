@@ -1,6 +1,7 @@
 import os
 import sys
-# import cv2
+sys.path.append('/usr/local/Cellar/opencv3/3.2.0/lib/python2.7/site-packages')
+import cv2
 
 def editImage():
     pass
