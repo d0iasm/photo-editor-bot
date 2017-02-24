@@ -12,7 +12,7 @@
 
   $args = array_map('escapeshellarg', ['hoge', 'fuga']);
   $cmd = vsprintf('python ../src/python/testPython.py %s %s 2>&1', $args);
-  exec($cmd, $output, $status);
+  system($cmd, $output, $status);
   $output = implode($output);
   var_dump(compact('output', 'status'));
 
