@@ -2,6 +2,7 @@ import os
 import sys
 import cv2
 import boto3
+import botocore
 import s3Constant
 
 class Filter(object):
@@ -14,9 +15,52 @@ class Filter(object):
     AWS_SECRET_ACCESS_KEY = s3Constant.getAwsSecretAccessKey
     S3_BUCKET = s3Constant.getS3Bucket
 
-    print(AWS_ACCESS_KEY_ID)
-
     s3 = boto3.resource('s3')
+    bucket = s3.Bucket(S3_BUCKET)
+
+    print(bucket.name)
+
+    # session = boto3.Session(
+    #     aws_access_key_id = AWS_ACCESS_KEY_ID
+    #     aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
+    #     region_name = 'ap-northeast-1'
+    # )
+
+    s3client = boto3.Session().client('s3')
+
+    response = s3client.list_objects(
+        Bucket = S3_BUCKET,
+        Prefix = 'hoge'
+    )
+
+    if 'Contents' in response:
+        keys = [content['Key'] for content in response['Contents']]
+        print(keys)
+
+    # rowImage = []
+    # for key in keys:
+    #     fp = StringIO()
+    #     key.get_contents_to_file(fp)
+    #     fp.seek(0)
+    #
+    #     print (fp.getvalue())
+    #     fp.close()
+
+
+    data = open('dest/half.jpg', 'rb')
+    s3.Bucket(S3_BUCKET).put_object(Key='test.jpg', Body=data)
+
+
+    # bucket = s3.Bucket(S3_BUCKET)
+    # exists = True
+    # try:
+    #     s3.meta.client.head_bucket(Bucket=S3_BUCKET)
+    # except botocore.exceptions.ClientError as e:
+    #     # If a client error is thrown, then check that it was a 404 error.
+    #     # If it was a 404 error, then the bucket does not exist.
+    #     error_code = int(e.response['Error']['Code'])
+    #     if error_code == 404:
+    #         exists = False
 
     img = cv2.imread('../../images/camera.png', cv2.IMREAD_COLOR)
 
