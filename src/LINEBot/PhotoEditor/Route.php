@@ -58,27 +58,28 @@ class Route
                     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
                     // $upload = $s3->upload($bucket, 'hoge.jpg', fopen($binaryImage, 'rb'), 'public-read');
-                    $result = $s3->putObject(array(
-                      'Bucket' => $bucket,
-                      'Key'    => 'hoge.jpg',
-                      'SourceFile'   => imagecreatefromstring($binaryImage),
-                      'ContentType'  => 'image/jpeg',
-                      'ACL'          => 'public-read',
-                    ));
+                    // $upload = $s3->upload($bucket, 'hoge.jpg', $binaryImage, 'public-read');
+                    // $upload = $s3->upload($bucket, 'hogeFile.jpg', fopen($_FILES['userfile']['tmp_name'], 'rb'), 'public-read');
+                    // $upload->get('ObjectURL')
 
-                    $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
-                    $bot->replyMessage($event->getReplyToken(), $editedImage);
+                    try {
+                      $result = $s3->putObject(array(
+                        'Bucket' => $bucket,
+                        'Key'    => 'hoge.jpg',
+                        'SourceFile'   => imagecreatefromstring($binaryImage),
+                        'ContentType'  => 'image/jpeg',
+                        'ACL'          => 'public-read',
+                      ));
 
-                    // try {
-                      // $upload = $s3->upload($bucket, 'hoge.jpg', $binaryImage, 'public-read');
-                      // $upload = $s3->upload($bucket, 'hogeFile.jpg', fopen($_FILES['userfile']['tmp_name'], 'rb'), 'public-read');
-                      // $upload->get('ObjectURL')
+                      $resultMeg = new TextMessageBuilder($result['ObjectURL']);
+                      $bot->replyMessage($event->getReplyToken(), $resultMeg);
+
                       // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                       // $bot->replyMessage($event->getReplyToken(), $editedImage);
-                    // } catch(Exception $e) {
-                      // $errorText = new TextMessageBuilder($e);
-                      // $bot->replyMessage($event->getReplyToken(), $errorText);
-                    // }
+                    } catch(Exception $e) {
+                      $errorText = new TextMessageBuilder($e);
+                      $bot->replyMessage($event->getReplyToken(), $errorText);
+                    }
 
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
