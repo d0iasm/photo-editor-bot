@@ -10,7 +10,7 @@
   var_dump($outpara[3]);
   echo '<PRE>';
 
-  $fullPath ='python ../src/python/filter.py';
-  exec($fullPath, $outpara);
-
-  echo('hoge')
+  // $fullPath ='python ../src/python/filter.py';
+  // exec($fullPath, $outpara);
+  //
+  // echo('hoge')
