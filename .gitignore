@@ -6,3 +6,5 @@ php.ini
 /logs/*
 /images/*
 /php_errors.logvendor
+/src/python/s3Constant.py
+/src/python/__pycache__/*

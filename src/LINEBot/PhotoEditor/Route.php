@@ -60,7 +60,8 @@ class Route
                     if ($binaryImage->isSucceeded()) {
                       $tempfile = tmpfile();
                       fwrite($tempfile, $binaryImage->getRawBody());
-                      $upload = $s3->upload($bucket, 'hoge.jpg', $tempfile, 'public-read');
+
+                      $upload = $s3->upload($bucket, 'rowImage.jpg', $tempfile, 'public-read');
 
                       $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                       $bot->replyMessage($event->getReplyToken(), $uploadURL);
@@ -69,9 +70,6 @@ class Route
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
                     }
 
-                    // $upload = $s3->upload($bucket, 'hoge.jpg', fopen($binaryImage, 'rb'), 'public-read');
-                    // $upload = $s3->upload($bucket, 'hogeFile.jpg', fopen($_FILES['userfile']['tmp_name'], 'rb'), 'public-read');
-                    // $upload->get('ObjectURL')
 
                     // try {
                     //   $result = $s3->putObject(array(
