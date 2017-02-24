@@ -67,10 +67,10 @@ class Route
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                         // $bot->replyMessage($event->getReplyToken(), $uploadURL);
 
-                        exec('python ../../python/filter.py');
+                        // exec('python ../../python/filter.py');
 
-                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pome.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
-                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
+                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pome.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
+                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                       } catch(\Aws\S3\Exception\S3Exception $e) {
