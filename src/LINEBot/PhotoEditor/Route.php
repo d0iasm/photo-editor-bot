@@ -77,7 +77,7 @@ class Route
                       // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                       // $bot->replyMessage($event->getReplyToken(), $editedImage);
                     } catch(\Aws\S3\Exception\S3Exception $e) {
-                      $errorText = new TextMessageBuilder($e);
+                      $errorText = new TextMessageBuilder($e->getMessage());
                       $bot->replyMessage($event->getReplyToken(), $errorText);
                     }
 
