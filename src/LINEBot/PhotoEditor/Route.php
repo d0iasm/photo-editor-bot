@@ -19,8 +19,6 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 class Route
 {
     public function register(\Slim\App $app)
@@ -56,7 +54,7 @@ class Route
                 if($event instanceof ImageMessage){
                     $binaryImage = $bot->getMessageContent($event->getMessageId());
 
-                    $s3 = Aws\S3\S3Client::factory();
+                    // $s3 = Aws\S3\S3Client::factory();
                     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
                     // try {
