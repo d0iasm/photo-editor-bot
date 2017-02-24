@@ -61,12 +61,12 @@ class Route
                       $tempFile = tmpfile();
                       fwrite($tempFile, $binaryImage->getRawBody());
 
-                      $upload = $s3->upload($bucket, 'row_image.jpg', $tempFile, 'public-read');
+                      $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
 
                       // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                       // $bot->replyMessage($event->getReplyToken(), $uploadURL);
 
-                      $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edit_image.jpg');
+                      $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg');
                       $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                     } else {
