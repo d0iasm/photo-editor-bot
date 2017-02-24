@@ -9,7 +9,8 @@ def editImage():
 # if __name__=='__main__':
 
 print (sys.path)
-print (os.path.dirname(__file__))
+# print (os.path.dirname(__file__))
+print (os.path.abspath(__file__))
 # print ('parameter1 is' + sys.argv[1])
 # print ('parameter2 is' + sys.argv[2])
 print ('result is OK!')
