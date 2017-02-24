@@ -6,18 +6,18 @@ import boto3
 import botocore
 import s3Constant
 
-s3Constant = s3Constant.S3Constant()
-AWS_ACCESS_KEY_ID = s3Constant.getAwsAccessKeyId
-AWS_SECRET_ACCESS_KEY = s3Constant.getAwsSecretAccessKey
-S3_BUCKET = s3Constant.getS3Bucket
+if __name__=='__main__':
+    s3Constant = s3Constant.S3Constant()
+    AWS_ACCESS_KEY_ID = s3Constant.getAwsAccessKeyId
+    AWS_SECRET_ACCESS_KEY = s3Constant.getAwsSecretAccessKey
+    S3_BUCKET = s3Constant.getS3Bucket
 
-s3client = boto3.Session(
-    aws_access_key_id = AWS_ACCESS_KEY_ID,
-    aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
-    region_name = 'ap-northeast-1'
-).client('s3')
-
-class Filter(object):
+    s3client = boto3.Session(
+        aws_access_key_id = AWS_ACCESS_KEY_ID,
+        aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
+        region_name = 'ap-northeast-1'
+    ).client('s3')
+    
     # def __init__(self, arg):
         # self.arg = arg
 
