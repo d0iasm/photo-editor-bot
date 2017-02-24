@@ -19,6 +19,8 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 class Route
 {
     public function register(\Slim\App $app)
