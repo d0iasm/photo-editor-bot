@@ -10,11 +10,11 @@
   var_dump($outpara[3]);
   echo '<PRE>';
 
-  // $args = array_map('escapeshellarg', ['hoge', 'fuga']);
-  // $cmd = vsprintf('python ../src/python/testPython.py %s %s 2>&1', $args);
-  // system($cmd, $output, $status);
-  // $output = implode($output);
-  // var_dump(compact('output', 'status'));
+  $args = array_map('escapeshellarg', ['hoge', 'fuga']);
+  $cmd = vsprintf('python ../src/python/testPython.py %s %s 2>&1', $args);
+  system($cmd, $output, $status);
+  $output = implode($output);
+  var_dump(compact('output', 'status'));
 
   // $fullPath ='python ../src/python/filter.py';
   // exec($fullPath, $outpara);
