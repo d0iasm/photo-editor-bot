@@ -18,7 +18,6 @@ s3client = boto3.Session(
 ).client('s3')
 
 class Filter(object):
-    """docstring for ."""
     # def __init__(self, arg):
         # self.arg = arg
 
@@ -42,21 +41,37 @@ class Filter(object):
         img = numpy.asarray(bytearray(raw_data['Body'].read()), dtype="uint8")
         img = cv2.imdecode(img, cv2.IMREAD_COLOR)
 
-        imgHeight, imgWidth = img.shape[:2]
-        size = (int(imgHeight/2), int(imgWidth/2))
+        img_height, img_width = img.shape[:2]
 
-        halfImg = cv2.resize(img, size)
+        if float(240)/img_height < float(240)/img_width:
+            ratio = float(240)/img_height
+        else:
+            ratio = float(240)/img_width
+
+        resized_image = cv2.resize(img, (int(img_width*ratio), int(img_height*ratio)))
+
+        edited_image = img
+
+        if img_width > 1024 or img_height > 1024:
+            if float(1024)/img_height < float(1024)/img_width:
+                ratio = float(1024)/img_height
+            else:
+                ratio = float(1024)/img_width
+
+            edited_image = cv2.resize(img, (int(img_width*ratio), int(img_height*ratio)))
 
         dirname = 'dest'
         if not os.path.exists(dirname):
             os.mkdir(dirname)
 
-        cv2.imwrite(os.path.join(dirname, 'edited_image.jpg'), halfImg)
+        cv2.imwrite(os.path.join(dirname, 'resized_image.jpg'), resized_image)
+        cv2.imwrite(os.path.join(dirname, 'edited_image.jpg'), edited_image)
 
-    def send_edited_image():
-        data = open('dest/edited_image.jpg', 'rb')
-        s3client.put_object(Bucket=S3_BUCKET, Key='edited_image.jpg', Body=data)
-        data.close()
+        resized_image = open('dest/resized_image.jpg', 'rb')
+        edited_image = open('dest/edited_image.jpg', 'rb')
+        s3client.put_object(Bucket=S3_BUCKET, Key='resized_image.jpg', Body=resized_image)
+        s3client.put_object(Bucket=S3_BUCKET, Key='edited_image.jpg', Body=edited_image)
+        resized_image.close()
+        edited_image.close()
 
     edit_image()
-    send_edited_image()
