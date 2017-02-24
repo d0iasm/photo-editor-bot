@@ -61,6 +61,10 @@ class Route
                       $tempfile = tmpfile();
                       fwrite($tempfile, $binaryImage->getRawBody());
                       $upload = $s3->upload($bucket, 'hoge.jpg', $tempfile, 'public-read');
+
+                      $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
+                      $bot->replyMessage($event->getReplyToken(), $uploadURL);
+
                     } else {
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
                     }
@@ -83,7 +87,7 @@ class Route
 
                       // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                       // $bot->replyMessage($event->getReplyToken(), $editedImage);
-                      
+
                     // } catch(\Aws\S3\Exception\S3Exception $e) {
                     //   $errorText = new TextMessageBuilder($e->getMessage());
                     //   $bot->replyMessage($event->getReplyToken(), $errorText);
