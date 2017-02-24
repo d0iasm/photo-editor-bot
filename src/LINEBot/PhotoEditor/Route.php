@@ -61,7 +61,7 @@ class Route
                     $result = $s3->putObject(array(
                       'Bucket' => $bucket,
                       'Key'    => 'hoge.jpg',
-                      'SourceFile'   => $binaryImage,
+                      'SourceFile'   => fopen($binaryImage, 'rb'),
                       'ContentType'  => 'image/jpeg',
                       'ACL'          => 'public-read',
                     ));
