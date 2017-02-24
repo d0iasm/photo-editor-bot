@@ -2,6 +2,9 @@ import os
 import sys
 # import cv2
 
+def editImage():
+    pass
+
 if __name__=='__main__':
 
     print ('parameter1 is' + sys.argv[1])
