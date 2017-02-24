@@ -61,16 +61,22 @@ class Route
                       $tempFile = tmpfile();
                       fwrite($tempFile, $binaryImage->getRawBody());
 
-                      $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
+                      try {
+                        $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
 
-                      // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
-                      // $bot->replyMessage($event->getReplyToken(), $uploadURL);
+                        // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
+                        // $bot->replyMessage($event->getReplyToken(), $uploadURL);
 
-                      exec('python ../../../src/python/filter.py');
+                        exec('python ../../../src/python/filter.py');
 
-                      $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pome.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
-                      // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
-                      $bot->replyMessage($event->getReplyToken(), $editedImage);
+                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pome.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
+                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
+                        $bot->replyMessage($event->getReplyToken(), $editedImage);
+
+                      } catch(\Aws\S3\Exception\S3Exception $e) {
+                        $errorText = new TextMessageBuilder($e->getMessage());
+                        $bot->replyMessage($event->getReplyToken(), $errorText);
+                      }
 
                     } else {
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
