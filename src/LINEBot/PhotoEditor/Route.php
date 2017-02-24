@@ -53,16 +53,18 @@ class Route
 
                 if($event instanceof ImageMessage){
                     $binaryImage = $bot->getMessageContent($event->getMessageId());
-                    // $resourceImage = imagecreatefromstring($binaryImage);
-                    // if ($resourceImage !== false) {
-                    //   header('Content-Type: image/jpeg');
-                    //   imagejpeg($resourceImage, '../../../tmp/test.jpg');
-                    //   imagedestroy($resourceImage);
+
+                    $s3 = Aws\S3\S3Client::factory();
+                    $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
+
+                    // try {
+                    //   $upload = $s3->upload($bucket, 'hogeFile.jpg', 'hogehoge', 'public-read');
+                    //   $upload = $s3->upload($bucket, 'hogeFile.jpg', fopen($_FILES['userfile']['tmp_name'], 'rb'), 'public-read');
+                    //   $upload->get('ObjectURL')
+                    // } catch(Exception $e) {
+                    //   $errorText = new TextMessageBuilder('[ERROR] 画像の取得に失敗しました。');
+                    //   $bot->replyMessage($event->getReplyToken(), $errorText);
                     // }
-                    // header('Content-Type: image/jpeg');
-                    // imagejpeg($binaryImage, '../../../tmp/bi_img.png');
-                    // file_put_contents('../../../tmp/bi_img.png', $binaryImage);
-                    // file_put_contents('../../../tmp/re_img.png', $resourceImage);
 
                     $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                     $bot->replyMessage($event->getReplyToken(), $editedImage);
