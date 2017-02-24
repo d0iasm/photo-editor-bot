@@ -1,7 +1,7 @@
 <?php
   echo('hoge');
   $fullPath ='/Users/DOIasami/.pyenv/shims/python ../src/python/testPython.py abcd 1234';
-  system($fullPath, $outpara);
+  exec($fullPath, $outpara);
   echo '<PRE>';
   var_dump($fullPath);
   var_dump($outpara[0]);
