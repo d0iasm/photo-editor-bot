@@ -3,9 +3,13 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private static $instance;
+  public static $instance;
 
   private $filtertype = IMG_FILTER_GRAYSCALE;
+
+  public function __construct() {
+    self::$instance = $this;
+  }
 
   public function setFiltertype($filterName) {
     if ($filterName == 'mono') {
