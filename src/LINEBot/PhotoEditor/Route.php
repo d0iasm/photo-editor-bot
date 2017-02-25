@@ -20,15 +20,6 @@ use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route {
-    public function resize($max, $width, $height) {
-      if ($max/$width > $max/$height) {
-        $ratio = $max/$height;
-      } else {
-        $ratio = $max/$width;
-      }
-      return $ratio;
-    }
-
     public function register(\Slim\App $app) {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
@@ -75,6 +66,15 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
+                        function resize($max, $width, $height) {
+                          if ($max/$width > $max/$height) {
+                            $ratio = $max/$height;
+                          } else {
+                            $ratio = $max/$width;
+                          }
+                          return $ratio;
+                        }
+
                         if (240 < $height || 240 < $width) {
                           if (240/$height < 240/$width) {
                             $ratio = 240/$height;
@@ -87,8 +87,8 @@ class Route {
                           imagejpeg($resizedImage);
                           $resizedImage = ob_get_contents();
                           ob_end_clean();
+                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         }
-                        $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         // if (240 < $height || 240 < $width) {
                         //   $ratio = $this->resize(240, $width, $height);
                         //   ob_start();
