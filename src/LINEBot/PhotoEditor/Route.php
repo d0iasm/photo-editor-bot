@@ -73,12 +73,12 @@ class Route
                         // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         // $bot->replyMessage($event->getReplyToken(), $editedImage);
 
-                        if (getimagesize('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg') == false) {
-                          $imageSize = new TextMessageBuilder('画像サイズ取得失敗');
+                        $size = getimagesize('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
+                        if ($size) {
+                          $imageSize = new TextMessageBuilder($size);
                           $bot -> replyMessage($event->getReplyToken(), $imageSize);
                         }else{
-                          $size = getimagesize('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
-                          $imageSize = new TextMessageBuilder($size);
+                          $imageSize = new TextMessageBuilder('失敗');
                           $bot -> replyMessage($event->getReplyToken(), $imageSize);
                         }
 
