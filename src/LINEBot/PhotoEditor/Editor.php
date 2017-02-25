@@ -4,7 +4,7 @@ namespace LINE\LINEBot\PhotoEditor;
 class Editor
 {
   public static $filtertype = IMG_FILTER_GRAYSCALE;
-  private $num = 0;
+  public $num = 0;
 
   public function __construct() {}
 
