@@ -66,7 +66,7 @@ class Route
                       $text_color = imagecolorallocate($img, 255, 0, 0);
                       imagefilledellipse($img, 200, 150, 300, 200, $text_color);
                       $tempFile2 = tmpfile();
-                      fwrite($tempFile2, $img;
+                      fwrite($tempFile2, $img);
                       imagedestroy($img);
 
                       try {
