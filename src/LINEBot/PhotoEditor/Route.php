@@ -111,6 +111,8 @@ class Route
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
                       $editor->setFiltertype('emboss');
+                      $replyText = new TextMessageBuilder('emboss 加工に変更しました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
                 }
             }
