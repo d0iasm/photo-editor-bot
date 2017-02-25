@@ -38,7 +38,7 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 function edit($originImage) {
   ob_start();
-  imagefilter($originImage, IMG_FILTER_MEAN_REMOVAL);
+  imagefilter($originImage, IMG_FILTER_EMBOSS);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
