@@ -3,13 +3,9 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  public static $instance;
+  private static $instance;
 
   private $filtertype = IMG_FILTER_GRAYSCALE;
-
-  public function __construct() {
-    self::$instance = $this;
-  }
 
   public function setFiltertype($filterName) {
     if ($filterName == 'mono') {
@@ -54,8 +50,8 @@ class Editor
   }
 
   public static function getInstance() {
-    if (self::$instance === null) {
-        self::$instance = new self();
+    if (!isset(self::$instance)) {
+      self::$instance = new Editor();
     }
     return self::$instance;
   }
