@@ -94,9 +94,9 @@ class Route {
                         //   $resizedImage = ob_get_contents();
                         //   ob_end_clean();
                         // }
-                        if (240 < $height || 240 < $width) {
-                          $resizedImage = resizedImage(240, $width, $height, $originImage);
-                        }
+                        // if (240 < $height || 240 < $width) {
+                        //   $resizedImage = resizedImage(240, $width, $height, $originImage);
+                        // }
 
                         ob_start();
                         imagejpeg($originImage);
