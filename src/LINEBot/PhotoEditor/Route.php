@@ -20,7 +20,7 @@ use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route {
-    public function resize($max, $width, $height, $originImage) {
+    private function resize($max, $width, $height, $originImage) {
       if ($max/$width > $max/$height) {
         $ratio = $max/$height;
       } else {
@@ -95,7 +95,7 @@ class Route {
                         //   ob_end_clean();
                         // }
                         if (240 < $height || 240 < $width) {
-                          $resizedImage = resizedImage(240, $width, $height, $originImage);
+                          $resizedImage = resize(240, $width, $height, $originImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         }
 
