@@ -65,7 +65,7 @@ class Route
                       $image = imagecreatefromjpeg($origin_filename);
                       list($width, $height, $type, $attr) = getimagesize($origin_filename);
                       ob_start();
-                      imagejpeg($image);
+                      // imagejpeg($image);
                       $ei = ob_get_contents();
                       ob_end_clean();
 
