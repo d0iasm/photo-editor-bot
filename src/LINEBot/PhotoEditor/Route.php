@@ -98,13 +98,18 @@ class Route {
                         // ob_end_clean();
                         $editedImage = edit($originImage);
 
-                        $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
-
-                        if (240 < $height || 240 < $width) {
+                        if (1024 < $height || 1024 < $width) {
+                          $resizedImage = resize(240, $width, $height, $editedImage);
+                          $resizedEditedImage = resize(1024, $width, $height, $editedImage);
+                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'edited_image.jpg', $resizedEditedImage, 'public-read');
+                        } else if (240 < $height || 240 < $width) {
                           $resizedImage = resize(240, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
                         } else {
-                          // editedImage をそのままresize_imageとして送信
+                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
                         }
 
                         // $replyText = new TextMessageBuilder('upload完了');
