@@ -19,6 +19,15 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
+function edit($originImage) {
+  ob_start();
+  imagefilter($originImage, IMG_FILTER_GRAYSCALE);
+  imagejpeg($originImage);
+  $editedImage = ob_get_contents();
+  ob_end_clean();
+  return $editedImage;
+}
+
 function resize($max, $width, $height, $originImage) {
   if ($max/$width > $max/$height) {
     $ratio = $max/$height;
@@ -81,61 +90,28 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editedImage = $originImage;
-                        ob_start();
-                        imagefilter($editedImage, IMG_FILTER_GRAYSCALE);
-                        imagejpeg($editedImage);
-                        $editedImage = ob_get_contents();
-                        ob_end_clean();
+                        // $editedImage = $originImage;
+                        // ob_start();
+                        // imagefilter($editedImage, IMG_FILTER_GRAYSCALE);
+                        // imagejpeg($editedImage);
+                        // $editedImage = ob_get_contents();
+                        // ob_end_clean();
+                        $editedImage = edit($originImage);
 
                         $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
 
                         if (240 < $height || 240 < $width) {
-                          // if (240/$height < 240/$width) {
-                          //   $ratio = 240/$height;
-                          // } else {
-                          //   $ratio = 240/$width;
-                          // }
-                          // ob_start();
-                          // $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
-                          // ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
-                          // imagejpeg($resizedImage);
-                          // $resizedImage = ob_get_contents();
-                          // ob_end_clean();
                           $resizedImage = resize(240, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         } else {
                           // editedImage をそのままresize_imageとして送信
                         }
-                        // if (240 < $height || 240 < $width) {
-                        //   $ratio = $this->resize(240, $width, $height);
-                        //   ob_start();
-                        //   $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
-                        //   ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
-                        //   imagejpeg($resizedImage);
-                        //   $resizedImage = ob_get_contents();
-                        //   ob_end_clean();
-                        //   $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
-                        // }
-
-                        // ob_start();
-                        // imagejpeg($originImage);
-                        // imagejpeg($resizedImage);
-                        // $ei = ob_get_contents();
-                        // $resizedImage = ob_get_contents();
-                        // ob_end_clean();
-
-                        // $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
 
                         // $replyText = new TextMessageBuilder('upload完了');
                         // $bot->replyMessage($event->getReplyToken(), $replyText);
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
-                        // $bot->replyMessage($event->getReplyToken(), $uploadURL);
 
-                        // exec('python ../../python/filter.py');
-
-                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                         $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         $bot->replyMessage($event->getReplyToken(), $editedImage);
 
