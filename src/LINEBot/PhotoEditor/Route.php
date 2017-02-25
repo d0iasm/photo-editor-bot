@@ -20,21 +20,21 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-// $filtertype = IMG_FILTER_GRAYSCALE;
-//
-// function setFiltertype($filterName) {
-//   if ($filterName == 'mono') {
-//     $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
-//   }else if ($filterName == 'nega') {
-//     $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
-//   }else if ($filterName == 'edge') {
-//     $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
-//   }else if ($filterName == 'removal') {
-//     $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
-//   }else if ($filterName == 'emboss') {
-//     $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-//   }
-// }
+$filtertype = IMG_FILTER_GRAYSCALE;
+
+function setFiltertype($filterName) {
+  if ($filterName == 'mono') {
+    $filtertype = IMG_FILTER_GRAYSCALE;
+  }else if ($filterName == 'nega') {
+    $filtertype = IMG_FILTER_NEGATE;
+  }else if ($filterName == 'edge') {
+    $filtertype = IMG_FILTER_EDGEDETECT;
+  }else if ($filterName == 'removal') {
+    $filtertype = IMG_FILTER_MEAN_REMOVAL;
+  }else if ($filterName == 'emboss') {
+    $filtertype = IMG_FILTER_EMBOSS;
+  }
+}
 
 function edit($originImage, $filtertype) {
   ob_start();
@@ -109,7 +109,7 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editedImage = edit($originImage, IMG_FILTER_GRAYSCALE);
+                        $editedImage = edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
                           // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
@@ -126,8 +126,6 @@ class Route {
                           $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         }
 
-                        // $filtertype = new TextMessageBuilder($GLOBALS['filtertype']);
-                        // $bot->replyMessage($event->getReplyToken(), $filtertype);
                         $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
                         $bot->replyMessage($event->getReplyToken(), $editedImage);
 
@@ -142,16 +140,16 @@ class Route {
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      $act1 = new MessageTemplateActionBuilder('label', IMG_FILTER_EMBOSS);
+                      $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_EMBOSS);
                       $act2 = new MessageTemplateActionBuilder('emboss', 'emboss');
-                      $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
+                      $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono2 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono3 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $template = new CarouselTemplateBuilder([$mono, $mono2, $mono3]);
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      $this->filtertype = IMG_FILTER_EMBOSS;
+                      setFiltertype('emboss');
                     }
                 }
             }
