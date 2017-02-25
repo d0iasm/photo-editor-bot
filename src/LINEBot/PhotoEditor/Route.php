@@ -20,7 +20,7 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-$GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
+$filtertype = IMG_FILTER_GRAYSCALE;
 
 function setFiltertype($filterName) {
   if ($filterName == 'mono') {
@@ -36,9 +36,9 @@ function setFiltertype($filterName) {
   }
 }
 
-function edit($originImage, $filtertype) {
+function edit($originImage) {
   ob_start();
-  imagefilter($originImage, $filtertype);
+  imagefilter($originImage, $GLOBALS['filtertype']);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
@@ -107,7 +107,7 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editedImage = edit($originImage, $GLOBALS['filtertype']);
+                        $editedImage = edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
                           // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
@@ -149,7 +149,7 @@ class Route {
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
+                      setFiltertype('emboss');
                     }
                 }
             }
