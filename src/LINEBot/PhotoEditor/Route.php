@@ -138,9 +138,8 @@ class Route {
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      setFiltertype('removal');
-                      // $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-                      $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_MEAN_REMOVAL);
+                      setFiltertype('emboss');
+                      $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_EMBOSS);
                       $act2 = new MessageTemplateActionBuilder('label', 'text');
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
                       $mono2 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
