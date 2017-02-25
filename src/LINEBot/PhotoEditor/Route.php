@@ -102,7 +102,7 @@ class Route {
                           // imagejpeg($resizedImage);
                           // $resizedImage = ob_get_contents();
                           // ob_end_clean();
-                          $resizedImage = resize(240, $width, $height, $originImage);
+                          $resizedImage = resize(240, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         } else {
                           // editedImage をそのままresize_imageとして送信
@@ -127,8 +127,8 @@ class Route {
 
                         // $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
 
-                        $replyText = new TextMessageBuilder('upload完了');
-                        $bot->replyMessage($event->getReplyToken(), $replyText);
+                        // $replyText = new TextMessageBuilder('upload完了');
+                        // $bot->replyMessage($event->getReplyToken(), $replyText);
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                         // $bot->replyMessage($event->getReplyToken(), $uploadURL);
@@ -136,8 +136,8 @@ class Route {
                         // exec('python ../../python/filter.py');
 
                         // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
-                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
-                        // $bot->replyMessage($event->getReplyToken(), $editedImage);
+                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
+                        $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                       } catch(\Aws\S3\Exception\S3Exception $e) {
                         $errorText = new TextMessageBuilder($e->getMessage());
