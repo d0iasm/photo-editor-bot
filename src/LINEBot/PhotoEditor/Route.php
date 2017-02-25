@@ -2,7 +2,7 @@
 namespace LINE\LINEBot\PhotoEditor;
 
 use LINE\LINEBot;
-use LINE\LINEBot\Editor;
+use LINE\LINEBot\PhotoEditor\Editor;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
