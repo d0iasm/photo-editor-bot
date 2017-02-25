@@ -5,24 +5,24 @@ class Editor
 {
   private static $instance;
 
-  private $filtertype = IMG_FILTER_GRAYSCALE;
+  private static $filtertype = IMG_FILTER_GRAYSCALE;
 
   public function setFiltertype($filterName) {
     if ($filterName == 'mono') {
-      $this->filtertype = IMG_FILTER_GRAYSCALE;
+      self::$filtertype = IMG_FILTER_GRAYSCALE;
     }else if ($filterName == 'nega') {
-      $this->filtertype = IMG_FILTER_NEGATE;
+      self::$filtertype = IMG_FILTER_NEGATE;
     }else if ($filterName == 'edge') {
-      $this->filtertype = IMG_FILTER_EDGEDETECT;
+      self::$filtertype = IMG_FILTER_EDGEDETECT;
     }else if ($filterName == 'removal') {
-      $this->filtertype = IMG_FILTER_MEAN_REMOVAL;
+      self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if ($filterName == 'emboss') {
-      $this->filtertype = IMG_FILTER_EMBOSS;
+      self::$filtertype = IMG_FILTER_EMBOSS;
     }
   }
 
   public function getFiltertype() {
-    return $this->filtertype;
+    return self::$filtertype;
   }
 
   public function edit($originImage) {
