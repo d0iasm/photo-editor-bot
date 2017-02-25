@@ -85,9 +85,15 @@ class Route
 
                         $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
 
-                        list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
-                        $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
+                        // list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
+                        // $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
                         // $im = @imagecreatetruecolor(120, 20);
+                        // $tempFile = tmpfile();
+                        // fwrite($tempFile, $img);
+                        $img = imagecreatetruecolor(400, 300);
+                        $bg = imagecolorallocate($img, 0, 0, 0);
+                        $text_color = imagecolorallocate($img, 255, 0, 0);
+                        imagefilledellipse($img, 200, 150, 300, 200, $text_color);
                         $tempFile = tmpfile();
                         fwrite($tempFile, $img);
                         $upload = $s3->upload($bucket, 'black.jpg', $tempFile, 'public-read');
