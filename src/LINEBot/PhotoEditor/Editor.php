@@ -11,6 +11,7 @@ class Editor
   {
       static $num = 0;
       $num++;
+      return $num;
   }
 
   public function setFiltertype($filterName) {
