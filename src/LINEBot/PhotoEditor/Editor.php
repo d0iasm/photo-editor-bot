@@ -16,7 +16,7 @@ class Editor
       self::$filtertype = IMG_FILTER_EDGEDETECT;
     }else if ($filterName == 'removal') {
       self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
-    }else if ($filterName == 'emboss') {
+    }else if (strpos($getText, 'emboss') !== false) {
       self::$filtertype = IMG_FILTER_EMBOSS;
     }
   }
@@ -27,7 +27,7 @@ class Editor
 
   public function edit($originImage) {
     ob_start();
-    imagefilter($originImage, self::$filtertype);
+    imagefilter($originImage, $this->getFiltertype());
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();
