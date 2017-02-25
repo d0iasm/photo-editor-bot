@@ -5,7 +5,7 @@ class Editor
 {
   public static $filtertype = IMG_FILTER_GRAYSCALE;
 
-  private function __construct() {}
+  public function __construct() {}
 
   public function testMethod()
   {
@@ -56,11 +56,11 @@ class Editor
     return $resizedImage;
   }
 
-  public static function getInstance() {
-    static $instance;
-    if ($instance === null) {
-      $instance = new self();
-    }
-    return $instance;
-  }
+  // public static function getInstance() {
+  //   static $instance;
+  //   if ($instance === null) {
+  //     $instance = new self();
+  //   }
+  //   return $instance;
+  // }
 }
