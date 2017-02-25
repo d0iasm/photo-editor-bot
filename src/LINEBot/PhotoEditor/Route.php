@@ -93,10 +93,10 @@ class Route
                       //     $bot -> replyMessage($event->getReplyToken(), $imageSize);
                       //   }
                       //
-                      // } catch(\Aws\S3\Exception\S3Exception $e) {
-                      //   $errorText = new TextMessageBuilder($e->getMessage());
-                      //   $bot->replyMessage($event->getReplyToken(), $errorText);
-                      // }
+                      } catch(\Aws\S3\Exception\S3Exception $e) {
+                        $errorText = new TextMessageBuilder($e->getMessage());
+                        $bot->replyMessage($event->getReplyToken(), $errorText);
+                      }
 
                     } else {
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
