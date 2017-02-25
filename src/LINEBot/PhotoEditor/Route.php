@@ -19,6 +19,15 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
+function resize($max, $width, $height) {
+  if ($max/$width > $max/$height) {
+    $ratio = $max/$height;
+  } else {
+    $ratio = $max/$width;
+  }
+  return $ratio;
+}
+
 class Route {
     public function register(\Slim\App $app) {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
@@ -65,15 +74,6 @@ class Route {
                         $originFilename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
-
-                        function resize($max, $width, $height) {
-                          if ($max/$width > $max/$height) {
-                            $ratio = $max/$height;
-                          } else {
-                            $ratio = $max/$width;
-                          }
-                          return $ratio;
-                        }
 
                         if (240 < $height || 240 < $width) {
                           if (240/$height < 240/$width) {
