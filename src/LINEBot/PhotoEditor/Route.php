@@ -140,8 +140,8 @@ class Route {
                     if(strpos($getText, '加工の調整をする') !== false){
                       // setFiltertype('edge');
                       $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-                      $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], 'textHoge1');
-                      $act2 = new MessageTemplateActionBuilder(IMG_FILTER_MEAN_REMOVAL, 'textHoge2');
+                      $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_GRAYSCALE);
+                      $act2 = new MessageTemplateActionBuilder(IMG_FILTER_EDGEDETECT, IMG_FILTER_EMBOSS);
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
                       $mono2 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono3 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
