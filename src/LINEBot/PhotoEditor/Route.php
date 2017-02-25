@@ -82,19 +82,21 @@ class Route
                         // }
                         // $oldlink = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
                         // $newlink = str_replace('https://', 'http://', $oldlink);
-                        $size = getimagesize('http://placehold.jp/150x150.jpg');
-                        if ($size == false) {
-                          $imageSize = new TextMessageBuilder('失敗');
-                          $bot -> replyMessage($event->getReplyToken(), $imageSize);
-                        }else{
-                          $imageSize = new TextMessageBuilder($size);
-                          $bot -> replyMessage($event->getReplyToken(), $imageSize);
-                        }
+                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]);
 
-                      } catch(\Aws\S3\Exception\S3Exception $e) {
-                        $errorText = new TextMessageBuilder($e->getMessage());
-                        $bot->replyMessage($event->getReplyToken(), $errorText);
-                      }
+                      //   $size = getimagesize('http://placehold.jp/150x150.jpg');
+                      //   if ($size == false) {
+                      //     $imageSize = new TextMessageBuilder('失敗');
+                      //     $bot -> replyMessage($event->getReplyToken(), $imageSize);
+                      //   }else{
+                      //     $imageSize = new TextMessageBuilder($size);
+                      //     $bot -> replyMessage($event->getReplyToken(), $imageSize);
+                      //   }
+                      //
+                      // } catch(\Aws\S3\Exception\S3Exception $e) {
+                      //   $errorText = new TextMessageBuilder($e->getMessage());
+                      //   $bot->replyMessage($event->getReplyToken(), $errorText);
+                      // }
 
                     } else {
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
