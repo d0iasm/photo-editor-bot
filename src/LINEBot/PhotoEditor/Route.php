@@ -67,7 +67,6 @@ class Route
                         $originFilename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
-                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder($width));
 
                         if (240 < $height || 240 < $width) {
                           if (240/$height < 240/$width) {
@@ -77,6 +76,7 @@ class Route
                           }
                           $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
                           ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
+                          $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder((int)$width*$ratio));
                         }
 
                         ob_start();
