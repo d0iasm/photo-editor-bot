@@ -108,6 +108,9 @@ class Route {
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
                         $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
 
+                        $replyText = new TextMessageBuilder('upload完了');
+                        $bot->replyMessage($event->getReplyToken(), $replyText);
+
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                         // $bot->replyMessage($event->getReplyToken(), $uploadURL);
 
