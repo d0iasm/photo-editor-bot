@@ -109,7 +109,7 @@ class Route {
 
                         // $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
 
-                        $replyText = new TextMessageBuilder($this->resize(240, $width, $height));
+                        $replyText = new TextMessageBuilder(resize(240, $width, $height));
                         $bot->replyMessage($event->getReplyToken(), $replyText);
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
