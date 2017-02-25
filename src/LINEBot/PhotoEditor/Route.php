@@ -20,9 +20,25 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-function edit($originImage) {
+// $filtertype = IMG_FILTER_GRAYSCALE;
+//
+// function setFiltertype($filterName) {
+//   if ($filterName == 'mono') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
+//   }else if ($filterName == 'nega') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
+//   }else if ($filterName == 'edge') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
+//   }else if ($filterName == 'removal') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
+//   }else if ($filterName == 'emboss') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
+//   }
+// }
+
+function edit($originImage, $filtertype) {
   ob_start();
-  imagefilter($originImage, IMG_FILTER_GRAYSCALE);
+  imagefilter($originImage, $filtertype);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
@@ -45,21 +61,7 @@ function resize($max, $width, $height, $originImage) {
 }
 
 class Route {
-    // $filtertype = IMG_FILTER_GRAYSCALE;
-    //
-    // function setFiltertype($filterName) {
-    //   if ($filterName == 'mono') {
-    //     $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
-    //   }else if ($filterName == 'nega') {
-    //     $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
-    //   }else if ($filterName == 'edge') {
-    //     $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
-    //   }else if ($filterName == 'removal') {
-    //     $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
-    //   }else if ($filterName == 'emboss') {
-    //     $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-    //   }
-    // }
+    $filtertype = IMG_FILTER_GRAYSCALE;
 
     public function register(\Slim\App $app) {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
@@ -107,7 +109,7 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editedImage = edit($originImage);
+                        $editedImage = edit($originImage, $this->filtertype);
 
                         if (1024 < $height || 1024 < $width) {
                           // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
@@ -149,7 +151,7 @@ class Route {
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      // setFiltertype('emboss');
+                      $this->filtertype = IMG_FILTER_EMBOSS;
                     }
                 }
             }
