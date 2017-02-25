@@ -16,7 +16,7 @@ class Editor
       self::$filtertype = IMG_FILTER_EDGEDETECT;
     }else if ($filterName == 'removal') {
       self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
-    }else if (strpos($getText, 'emboss') !== false) {
+    }else if (strpos($filterName, 'emboss') !== false) {
       self::$filtertype = IMG_FILTER_EMBOSS;
     }
   }
