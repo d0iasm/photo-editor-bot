@@ -3,10 +3,10 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private static $filtertype = IMG_FILTER_GRAYSCALE;
+  private $filtertype = IMG_FILTER_GRAYSCALE;
   // public $num = 0;
 
-  public function __construct() {}
+  private function __construct() {}
 
   // public function addNum(){
   //   $editor->num += 3;
@@ -20,26 +20,27 @@ class Editor
   // }
 
   public static function setFiltertype($filterName) {
+    $editor = self::getInstance();
     if (strpos($filterName, 'gray') !== false) {
-      self::$filtertype = IMG_FILTER_GRAYSCALE;
+      $editor->filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
-      self::$filtertype = IMG_FILTER_NEGATE;
+      $editor->filtertype = IMG_FILTER_NEGATE;
     }else if (strpos($filterName, 'edge') !== false) {
-      self::$filtertype = IMG_FILTER_EDGEDETECT;
+      $editor->filtertype = IMG_FILTER_EDGEDETECT;
     }else if (strpos($filterName, 'removal') !== false) {
-      self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
+      $editor->filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      self::$filtertype = IMG_FILTER_EMBOSS;
+      $editor->filtertype = IMG_FILTER_EMBOSS;
     }
   }
 
-  public static function getFiltertype() {
-    return self::$filtertype;
+  public function getFiltertype() {
+    return $this->filtertype;
   }
 
   public function edit($originImage) {
     ob_start();
-    imagefilter($originImage, self::getFiltertype());
+    imagefilter($originImage, $this->getFiltertype());
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();
