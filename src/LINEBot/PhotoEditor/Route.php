@@ -60,6 +60,7 @@ class Route
                     if ($binaryImage->isSucceeded()) {
                       $tempFile = tmpfile();
                       fwrite($tempFile, $binaryImage->getRawBody());
+                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($tempFile)));
 
                       try {
                         $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
@@ -84,7 +85,6 @@ class Route
                         // $newlink = str_replace('https://', 'http://', $oldlink);
 
                         // $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
-                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($tempFile)));
 
                         // list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
                         // $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
