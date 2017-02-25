@@ -65,12 +65,13 @@ class Route
                       $bg = imagecolorallocate($img, 0, 0, 0);
                       $text_color = imagecolorallocate($img, 255, 0, 0);
                       imagefilledellipse($img, 200, 150, 300, 200, $text_color);
-                      $tempFile2 = tmpfile();
-                      fwrite($tempFile2, $img);
+                      // $tempFile2 = tmpfile();
+                      // fwrite($tempFile2, $img);
+                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($img)));
                       imagedestroy($img);
 
                       try {
-                        $upload = $s3->upload($bucket, 'black.jpg', $tempFile2, 'public-read');
+                        $upload = $s3->upload($bucket, 'black.jpg', $img, 'public-read');
                         $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
@@ -92,7 +93,7 @@ class Route
                         // $oldlink = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
                         // $newlink = str_replace('https://', 'http://', $oldlink);
 
-                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
+                        // $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
 
                         // list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
                         // $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
