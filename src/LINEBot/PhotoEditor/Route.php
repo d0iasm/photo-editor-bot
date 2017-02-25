@@ -81,6 +81,7 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
+                        $originImage2 = $originImage;
                         if (240 < $height || 240 < $width) {
                           // if (240/$height < 240/$width) {
                           //   $ratio = 240/$height;
@@ -116,7 +117,7 @@ class Route {
 
                         // $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
 
-                        $replyText = new TextMessageBuilder(resize(240, $width, $height, $originImage));
+                        $replyText = new TextMessageBuilder(resize(240, $width, $height, $originImage2));
                         $bot->replyMessage($event->getReplyToken(), $replyText);
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
