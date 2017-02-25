@@ -73,7 +73,8 @@ class Route
                         // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         // $bot->replyMessage($event->getReplyToken(), $editedImage);
 
-                        if (getimagesize($tempFile) == false) {
+                        $filename = stream_get_meta_data($tempFile)['uri'];
+                        if (getimagesize($filename) == false) {
                           $imageSize = new TextMessageBuilder('画像サイズ取得失敗');
                           $bot -> replyMessage($event->getReplyToken(), $imageSize);
                         }else{
