@@ -89,7 +89,7 @@ class Route
                         $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
                         // $im = @imagecreatetruecolor(120, 20);
                         $tempFile = tmpfile();
-                        fwrite($tempFile, $img;
+                        fwrite($tempFile, $img);
                         $upload = $s3->upload($bucket, 'black.jpg', $tempFile, 'public-read');
 
                         imagedestroy($img);
