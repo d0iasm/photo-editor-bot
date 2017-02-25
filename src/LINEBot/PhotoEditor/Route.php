@@ -2,6 +2,7 @@
 namespace LINE\LINEBot\PhotoEditor;
 
 use LINE\LINEBot;
+use LINE\LINEBot\Editor;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
@@ -20,50 +21,10 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-$filtertype = IMG_FILTER_GRAYSCALE;
-
-function setFiltertype($filterName) {
-  if ($filterName == 'mono') {
-    $filtertype = IMG_FILTER_GRAYSCALE;
-  }else if ($filterName == 'nega') {
-    $filtertype = IMG_FILTER_NEGATE;
-  }else if ($filterName == 'edge') {
-    $filtertype = IMG_FILTER_EDGEDETECT;
-  }else if ($filterName == 'removal') {
-    $filtertype = IMG_FILTER_MEAN_REMOVAL;
-  }else if ($filterName == 'emboss') {
-    $filtertype = IMG_FILTER_EMBOSS;
-  }
-}
-
-function edit($originImage) {
-  ob_start();
-  imagefilter($originImage, $filtertype);
-  imagejpeg($originImage);
-  $editedImage = ob_get_contents();
-  ob_end_clean();
-  return $editedImage;
-}
-
-function resize($max, $width, $height, $originImage) {
-  if ($max/$width > $max/$height) {
-    $ratio = $max/$height;
-  } else {
-    $ratio = $max/$width;
-  }
-  ob_start();
-  $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
-  ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
-  imagejpeg($resizedImage);
-  $resizedImage = ob_get_contents();
-  ob_end_clean();
-  return $resizedImage;
-}
-
-class Route {
-    public $filtertype = IMG_FILTER_GRAYSCALE;
-
-    public function register(\Slim\App $app) {
+class Route
+{
+    public function register(\Slim\App $app)
+    {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
@@ -109,16 +70,17 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editedImage = edit($originImage);
+                        $editor = new Editor();
+                        $editedImage = $editor->edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
                           // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
-                          $resizedImage = resize(240, $width, $height, $editedImage);
-                          // $editedImage = resize(1024, $width, $height, $editedImage);
+                          $resizedImage = $editor->resize(240, $width, $height, $editedImage);
+                          // $editedImage = $editor->resize(1024, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'upload/resized_image.jpg', $resizedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         } else if (240 < $height || 240 < $width) {
-                          $resizedImage = resize(240, $width, $height, $editedImage);
+                          $resizedImage = $editor->resize(240, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'upload/resized_image.jpg', $resizedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         } else {
