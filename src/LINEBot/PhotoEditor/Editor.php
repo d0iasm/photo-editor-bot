@@ -11,7 +11,7 @@ class Editor
   public function testMethod()
   {
     $editor = self::getInstance();
-    $editor->num += 1;
+    $editor->num += 3;
     return $editor->num;
   }
 
