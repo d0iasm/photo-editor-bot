@@ -110,8 +110,7 @@ class Route
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      // $editor->setFiltertype('emboss');
-                      Editor::$filtertype = IMG_FILTER_EMBOSS;
+                      $editor->setFiltertype('emboss');
                       $replyText = new TextMessageBuilder('emboss 加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }

@@ -3,38 +3,39 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  public static $filtertype = IMG_FILTER_GRAYSCALE;
-  public $num = 0;
+  private $filtertype = IMG_FILTER_GRAYSCALE;
+  // public $num = 0;
 
   public function __construct() {}
 
-  public function addNum(){
-    $editor->num += 3;
-  }
-
-  public function testMethod()
-  {
-    $editor = self::getInstance();
-    $editor->addNum();
-    return $editor->num;
-  }
+  // public function addNum(){
+  //   $editor->num += 3;
+  // }
+  //
+  // public function testMethod()
+  // {
+  //   $editor = self::getInstance();
+  //   $editor->addNum();
+  //   return $editor->num;
+  // }
 
   public function setFiltertype($filterName) {
-    if ($filterName == 'mono') {
-      self::$filtertype = IMG_FILTER_GRAYSCALE;
-    }else if ($filterName == 'nega') {
-      self::$filtertype = IMG_FILTER_NEGATE;
-    }else if ($filterName == 'edge') {
-      self::$filtertype = IMG_FILTER_EDGEDETECT;
-    }else if ($filterName == 'removal') {
-      self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
+    $editor = self::getInstance();
+    if (strpos($filterName, 'gray') !== false) {
+      $editor->filtertype = IMG_FILTER_GRAYSCALE;
+    }else if (strpos($filterName, 'nega') !== false) {
+      $editor->filtertype = IMG_FILTER_NEGATE;
+    }else if (strpos($filterName, 'edge') !== false) {
+      $editor->filtertype = IMG_FILTER_EDGEDETECT;
+    }else if (strpos($filterName, 'removal') !== false) {
+      $editor->filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      self::$filtertype = IMG_FILTER_EMBOSS;
+      $editor->filtertype = IMG_FILTER_EMBOSS;
     }
   }
 
   public function getFiltertype() {
-    return self::$filtertype;
+    return $filtertype;
   }
 
   public function edit($originImage) {
