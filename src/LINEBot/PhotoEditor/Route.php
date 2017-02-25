@@ -125,8 +125,9 @@ class Route {
                         }
 
                         $filtertype = new TextMessageBuilder($GLOBALS['filtertype']);
-                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
-                        $bot->replyMessage($event->getReplyToken(), $editedImage);
+                        $bot->replyMessage($event->getReplyToken(), $filtertype);
+                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
+                        // $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                       } catch(\Aws\S3\Exception\S3Exception $e) {
                         $errorText = new TextMessageBuilder($e->getMessage());
