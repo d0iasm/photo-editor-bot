@@ -73,7 +73,7 @@ class Route
                         // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         // $bot->replyMessage($event->getReplyToken(), $editedImage);
 
-                        $size = getimagesize('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
+                        $size = getimagesize('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
                         if ($size) {
                           $imageSize = new TextMessageBuilder($size);
                           $bot -> replyMessage($event->getReplyToken(), $imageSize);
