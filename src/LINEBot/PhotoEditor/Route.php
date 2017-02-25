@@ -124,6 +124,7 @@ class Route {
                           $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         }
 
+                        $filtertype = new TextMessageBuilder($GLOBALS['filtertype']);
                         $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
                         $bot->replyMessage($event->getReplyToken(), $editedImage);
 
@@ -138,15 +139,16 @@ class Route {
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      setFiltertype('emboss');
                       $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_EMBOSS);
-                      $act2 = new MessageTemplateActionBuilder('label', 'text');
+                      $act2 = new MessageTemplateActionBuilder('emboss', 'emboss');
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
                       $mono2 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono3 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $template = new CarouselTemplateBuilder([$mono, $mono2, $mono3]);
-                      $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます', $template);
+                      $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
+                    }else if(strpos($getText, 'emboss') !== false){
+                      setFiltertype('emboss');
                     }
                 }
             }
