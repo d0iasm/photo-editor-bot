@@ -20,7 +20,7 @@ use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route {
-    private function resize($max, $width, $height, $originImage) {
+    function resize($max, $width, $height, $originImage) {
       if ($max/$width > $max/$height) {
         $ratio = $max/$height;
       } else {
