@@ -138,7 +138,7 @@ class Route {
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      setFiltertype('nega');
+                      // setFiltertype('nega');
                       $act1 = new MessageTemplateActionBuilder('labelHoge1', 'textHoge1');
                       $act2 = new MessageTemplateActionBuilder('labelHoge2', 'textHoge2');
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
