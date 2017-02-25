@@ -83,7 +83,8 @@ class Route
                         // $oldlink = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
                         // $newlink = str_replace('https://', 'http://', $oldlink);
 
-                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
+                        // $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
+                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($tempFile)));
 
                         // list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
                         // $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
