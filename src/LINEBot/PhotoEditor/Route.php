@@ -60,7 +60,13 @@ class Route
                     if ($binaryImage->isSucceeded()) {
                       $tempFile = tmpfile();
                       fwrite($tempFile, $binaryImage->getRawBody());
-                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($tempFile)));
+
+                      $img = imagecreatetruecolor(400, 300);
+                      $bg = imagecolorallocate($img, 0, 0, 0);
+                      $text_color = imagecolorallocate($img, 255, 0, 0);
+                      imagefilledellipse($img, 200, 150, 300, 200, $text_color);
+                      $upload = $s3->upload($bucket, 'black.jpg', $img, 'public-read');
+                      imagedestroy($img);
 
                       try {
                         $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
@@ -91,15 +97,15 @@ class Route
                         // $im = @imagecreatetruecolor(120, 20);
                         // $tempFile = tmpfile();
                         // fwrite($tempFile, $img);
-                        $img = imagecreatetruecolor(400, 300);
-                        $bg = imagecolorallocate($img, 0, 0, 0);
-                        $text_color = imagecolorallocate($img, 255, 0, 0);
-                        imagefilledellipse($img, 200, 150, 300, 200, $text_color);
-                        $tempFile = tmpfile();
-                        fwrite($tempFile, $img);
-                        $upload = $s3->upload($bucket, 'black.jpg', $tempFile, 'public-read');
-
-                        imagedestroy($img);
+                        // $img = imagecreatetruecolor(400, 300);
+                        // $bg = imagecolorallocate($img, 0, 0, 0);
+                        // $text_color = imagecolorallocate($img, 255, 0, 0);
+                        // imagefilledellipse($img, 200, 150, 300, 200, $text_color);
+                        // $tempFile = tmpfile();
+                        // fwrite($tempFile, $img);
+                        // $upload = $s3->upload($bucket, 'black.jpg', $tempFile, 'public-read');
+                        //
+                        // imagedestroy($img);
 
                       //   $size = getimagesize('http://placehold.jp/150x150.jpg');
                       //   if ($size == false) {
