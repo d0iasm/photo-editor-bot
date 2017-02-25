@@ -20,20 +20,6 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-function setFiltertype($filterName) {
-  if ($filterName == 'mono') {
-    $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
-  }else if ($filterName == 'nega') {
-    $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
-  }else if ($filterName == 'edge') {
-    $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
-  }else if ($filterName == 'removal') {
-    $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
-  }else if ($filterName == 'emboss') {
-    $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-  }
-}
-
 function edit($originImage) {
   ob_start();
   imagefilter($originImage, IMG_FILTER_GRAYSCALE);
@@ -60,6 +46,20 @@ function resize($max, $width, $height, $originImage) {
 
 class Route {
     $filtertype = IMG_FILTER_GRAYSCALE;
+
+    function setFiltertype($filterName) {
+      if ($filterName == 'mono') {
+        $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
+      }else if ($filterName == 'nega') {
+        $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
+      }else if ($filterName == 'edge') {
+        $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
+      }else if ($filterName == 'removal') {
+        $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
+      }else if ($filterName == 'emboss') {
+        $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
+      }
+    }
 
     public function register(\Slim\App $app) {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
