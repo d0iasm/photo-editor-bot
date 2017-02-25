@@ -90,12 +90,6 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        // $editedImage = $originImage;
-                        // ob_start();
-                        // imagefilter($editedImage, IMG_FILTER_GRAYSCALE);
-                        // imagejpeg($editedImage);
-                        // $editedImage = ob_get_contents();
-                        // ob_end_clean();
                         $editedImage = edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
@@ -111,11 +105,6 @@ class Route {
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
                         }
-
-                        // $replyText = new TextMessageBuilder('upload完了');
-                        // $bot->replyMessage($event->getReplyToken(), $replyText);
-
-                        // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
 
                         $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         $bot->replyMessage($event->getReplyToken(), $editedImage);
