@@ -36,9 +36,9 @@ function setFiltertype($filterName) {
   }
 }
 
-function edit($originImage) {
+function edit($originImage, $filtertype) {
   ob_start();
-  imagefilter($originImage, $GLOBALS['filtertype']);
+  imagefilter($originImage, $filtertype);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
@@ -107,7 +107,7 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editedImage = edit($originImage);
+                        $editedImage = edit($originImage, $GLOBALS['filtertype']);
 
                         if (1024 < $height || 1024 < $width) {
                           // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
@@ -138,7 +138,7 @@ class Route {
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      setFiltertype('edge');
+                      setFiltertype('emboss');
                       $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_EMBOSS);
                       $act2 = new MessageTemplateActionBuilder('label', 'text');
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
