@@ -50,9 +50,9 @@ class Editor
   }
 
   public static function getInstance() {
-    if ( ! isset( static::$instance ) ) {
-        static::$instance = new self();
+    if (self::$instance === null) {
+        self::$instance = new self();
     }
-    return static::$instance;
+    return self::$instance;
   }
 }
