@@ -20,19 +20,13 @@ use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route {
-    function resize($max, $width, $height, $originImage) {
+    function resize($max, $width, $height) {
       if ($max/$width > $max/$height) {
         $ratio = $max/$height;
       } else {
         $ratio = $max/$width;
       }
-      ob_start();
-      $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
-      ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
-      imagejpeg($resizedImage);
-      $resizedImage = ob_get_contents();
-      ob_end_clean();
-      return $resizedImage;
+      return $ratio;
     }
 
     public function register(\Slim\App $app) {
@@ -95,7 +89,13 @@ class Route {
                         //   ob_end_clean();
                         // }
                         if (240 < $height || 240 < $width) {
-                          $resizedImage = $this->resize(240, $width, $height, $originImage);
+                          $ratio = $this->resize(240, $width, $height);
+                          ob_start();
+                          $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
+                          ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
+                          imagejpeg($resizedImage);
+                          $resizedImage = ob_get_contents();
+                          ob_end_clean();
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         }
 
