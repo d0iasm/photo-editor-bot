@@ -24,15 +24,15 @@ class Route
     public function register(\Slim\App $app)
     {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
-            /** @var \LINE\LINEBot $bot */
+
             $bot = $this->bot;
-            /** @var \Monolog\Logger $logger */
+
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
             if (empty($signature)) {
                 return $res->withStatus(400, 'Bad Request');
             }
-            // Check request with signature and parse request
+
             try {
                 $events = $bot->parseEventRequest($req->getBody(), $signature[0]);
             } catch (InvalidSignatureException $e) {
@@ -68,12 +68,25 @@ class Route
                         $image = imagecreatefromjpeg($origin_filename);
                         list($width, $height, $type, $attr) = getimagesize($origin_filename);
                         $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder($width));
+
+                        if (240 < $height || 240 < $width) {
+                          if (240/$height < 240/$width) {
+                            $ratio = 240/$height;
+                          } else {
+                            $ratio = 240/$width;
+                          }
+                          $resized_image = ImageCreateTrueColor((int)$width*$ratio, (int)$height*$ratio);
+                        }
+
                         ob_start();
                         imagejpeg($image);
+                        imagejpeg($resized_image);
                         $ei = ob_get_contents();
+                        $resized_image = ob_get_contents();
                         ob_end_clean();
 
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
+                        $upload = $s3->upload($bucket, 'resized_image.jpg', $resized_image, 'public-read');
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                         // $bot->replyMessage($event->getReplyToken(), $uploadURL);
@@ -84,42 +97,6 @@ class Route
                         // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
                         // $bot->replyMessage($event->getReplyToken(), $editedImage);
 
-                        // $url = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
-                        // $url = trim($url); // Get rid of any accidental whitespace
-                        // $parsed = parse_url($url); // analyse the URL
-                        // if (isset($parsed['scheme']) && strtolower($parsed['scheme']) == 'https') {
-                        // // If it is https, change it to http
-                        //   $url = 'http://'.substr($url,8);
-                        // }
-                        // $oldlink = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
-                        // $newlink = str_replace('https://', 'http://', $oldlink);
-
-                        // $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
-
-                        // list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
-                        // $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
-                        // $im = @imagecreatetruecolor(120, 20);
-                        // $tempFile = tmpfile();
-                        // fwrite($tempFile, $img);
-                        // $img = imagecreatetruecolor(400, 300);
-                        // $bg = imagecolorallocate($img, 0, 0, 0);
-                        // $text_color = imagecolorallocate($img, 255, 0, 0);
-                        // imagefilledellipse($img, 200, 150, 300, 200, $text_color);
-                        // $tempFile = tmpfile();
-                        // fwrite($tempFile, $img);
-                        // $upload = $s3->upload($bucket, 'black.jpg', $tempFile, 'public-read');
-                        //
-                        // imagedestroy($img);
-
-                      //   $size = getimagesize('http://placehold.jp/150x150.jpg');
-                      //   if ($size == false) {
-                      //     $imageSize = new TextMessageBuilder('失敗');
-                      //     $bot -> replyMessage($event->getReplyToken(), $imageSize);
-                      //   }else{
-                      //     $imageSize = new TextMessageBuilder($size);
-                      //     $bot -> replyMessage($event->getReplyToken(), $imageSize);
-                      //   }
-                      //
                       } catch(\Aws\S3\Exception\S3Exception $e) {
                         $errorText = new TextMessageBuilder($e->getMessage());
                         $bot->replyMessage($event->getReplyToken(), $errorText);
@@ -128,27 +105,6 @@ class Route
                     } else {
                       error_log($binaryImage->getHTTPStatus() . ' ' . $binaryImage->getRawBody());
                     }
-
-
-                    // try {
-                    //   $result = $s3->putObject(array(
-                    //     'Bucket' => $bucket,
-                    //     'Key'    => 'hoge.jpg',
-                    //     'SourceFile'   => imagecreatefromstring($binaryImage),
-                    //     'ContentType'  => 'image/jpeg',
-                    //     'ACL'          => 'public-read',
-                    //   ));
-                    //
-                    //   $resultMeg = new TextMessageBuilder($result['ObjectURL']);
-                    //   $bot->replyMessage($event->getReplyToken(), $resultMeg);
-
-                      // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
-                      // $bot->replyMessage($event->getReplyToken(), $editedImage);
-
-                    // } catch(\Aws\S3\Exception\S3Exception $e) {
-                    //   $errorText = new TextMessageBuilder($e->getMessage());
-                    //   $bot->replyMessage($event->getReplyToken(), $errorText);
-                    // }
 
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
