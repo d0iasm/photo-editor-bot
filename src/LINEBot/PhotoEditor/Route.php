@@ -120,19 +120,13 @@ class Route {
 
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
-                    if($getText == 'help' || $getText == 'Help' || $getText == 'HELP' || $getText == 'ヘルプ'){
+                    if(strpos($getText, '加工の調整をする') !== false){
                       $act1 = new MessageTemplateActionBuilder('labelHoge1', 'textHoge1');
                       $act2 = new MessageTemplateActionBuilder('labelHoge2', 'textHoge2');
                       $template = new ConfirmTemplateBuilder('tempHoge', [$act1, $act2]);
                       $templateMessage = new TemplateMessageBuilder('tempMsgHoge', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
-                    }else{
-                      $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニュー、または Help と送信');
-                      $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
-                }else{
-                    $replyText = new TextMessageBuilder('画像を送ってね。詳しい使い方はメニュー、または Help と送信');
-                    $bot->replyMessage($event->getReplyToken(), $replyText);
                 }
             }
             $res->write('OK');
