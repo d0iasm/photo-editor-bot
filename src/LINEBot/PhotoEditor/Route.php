@@ -19,13 +19,19 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-function resize($max, $width, $height) {
+function resize($max, $width, $height, $originImage) {
   if ($max/$width > $max/$height) {
     $ratio = $max/$height;
   } else {
     $ratio = $max/$width;
   }
-  return $ratio;
+  ob_start();
+  $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
+  ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
+  imagejpeg($resizedImage);
+  $resizedImage = ob_get_contents();
+  ob_end_clean();
+  return $resizedImage;
 }
 
 class Route {
@@ -76,17 +82,18 @@ class Route {
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
                         if (240 < $height || 240 < $width) {
-                          if (240/$height < 240/$width) {
-                            $ratio = 240/$height;
-                          } else {
-                            $ratio = 240/$width;
-                          }
-                          ob_start();
-                          $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
-                          ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
-                          imagejpeg($resizedImage);
-                          $resizedImage = ob_get_contents();
-                          ob_end_clean();
+                          // if (240/$height < 240/$width) {
+                          //   $ratio = 240/$height;
+                          // } else {
+                          //   $ratio = 240/$width;
+                          // }
+                          // ob_start();
+                          // $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
+                          // ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
+                          // imagejpeg($resizedImage);
+                          // $resizedImage = ob_get_contents();
+                          // ob_end_clean();
+                          $resizedImage = resize(240, $width, $height, $originImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         }
                         // if (240 < $height || 240 < $width) {
