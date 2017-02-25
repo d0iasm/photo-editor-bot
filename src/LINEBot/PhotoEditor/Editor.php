@@ -27,7 +27,7 @@ class Editor
 
   public function edit($originImage) {
     ob_start();
-    imagefilter($originImage, $this->filtertype);
+    imagefilter($originImage, $this->getFiltertype());
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();
