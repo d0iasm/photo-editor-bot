@@ -82,7 +82,7 @@ class Route
                         // }
                         // $oldlink = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
                         // $newlink = str_replace('https://', 'http://', $oldlink);
-                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]);
+                        $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
 
                       //   $size = getimagesize('http://placehold.jp/150x150.jpg');
                       //   if ($size == false) {
