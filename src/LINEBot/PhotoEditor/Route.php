@@ -20,25 +20,25 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-$filtertype = IMG_FILTER_GRAYSCALE;
-
-function setFiltertype($filterName) {
-  if ($filterName == 'mono') {
-    $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
-  }else if ($filterName == 'nega') {
-    $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
-  }else if ($filterName == 'edge') {
-    $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
-  }else if ($filterName == 'removal') {
-    $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
-  }else if ($filterName == 'emboss') {
-    $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-  }
-}
+// $filtertype = IMG_FILTER_GRAYSCALE;
+//
+// function setFiltertype($filterName) {
+//   if ($filterName == 'mono') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
+//   }else if ($filterName == 'nega') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
+//   }else if ($filterName == 'edge') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
+//   }else if ($filterName == 'removal') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
+//   }else if ($filterName == 'emboss') {
+//     $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
+//   }
+// }
 
 function edit($originImage) {
   ob_start();
-  imagefilter($originImage, $GLOBALS['filtertype']);
+  imagefilter($originImage, IMG_FILTER_MEAN_REMOVAL);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
@@ -124,10 +124,10 @@ class Route {
                           $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         }
 
-                        $filtertype = new TextMessageBuilder($GLOBALS['filtertype']);
-                        $bot->replyMessage($event->getReplyToken(), $filtertype);
-                        // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
-                        // $bot->replyMessage($event->getReplyToken(), $editedImage);
+                        // $filtertype = new TextMessageBuilder($GLOBALS['filtertype']);
+                        // $bot->replyMessage($event->getReplyToken(), $filtertype);
+                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
+                        $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                       } catch(\Aws\S3\Exception\S3Exception $e) {
                         $errorText = new TextMessageBuilder($e->getMessage());
@@ -149,7 +149,9 @@ class Route {
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      setFiltertype('emboss');
+                      // setFiltertype('emboss');
+                      $filtertype = new TextMessageBuilder('emboss!');
+                      $bot->replyMessage($event->getReplyToken(), $filtertype);
                     }
                 }
             }
