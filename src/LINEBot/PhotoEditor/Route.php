@@ -93,8 +93,9 @@ class Route {
                         $editedImage = edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
+                          // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
                           $resizedImage = resize(240, $width, $height, $editedImage);
-                          $editedImage = resize(1024, $width, $height, $editedImage);
+                          // $editedImage = resize(1024, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
                         } else if (240 < $height || 240 < $width) {
