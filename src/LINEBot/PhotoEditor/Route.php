@@ -101,7 +101,7 @@ class Route
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      $act1 = new MessageTemplateActionBuilder($editor->getFiltertype(), IMG_FILTER_NEGATE);
+                      $act1 = new MessageTemplateActionBuilder(Editor::getFiltertype(), IMG_FILTER_NEGATE);
                       $act2 = new MessageTemplateActionBuilder('emboss', 'emboss');
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono2 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
@@ -110,7 +110,7 @@ class Route
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      $editor->setFiltertype('emboss');
+                      Editor::setFiltertype('emboss');
                       $replyText = new TextMessageBuilder('emboss 加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
