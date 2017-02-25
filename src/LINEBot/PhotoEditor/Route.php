@@ -36,7 +36,7 @@ function setFiltertype($filterName) {
 
 function edit($originImage) {
   ob_start();
-  imagefilter($originImage, $GLOBALS['filtertype']);
+  imagefilter($originImage, IMG_FILTER_GRAYSCALE);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
