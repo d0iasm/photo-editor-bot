@@ -26,7 +26,7 @@ class Route {
       } else {
         $ratio = $max/$width;
       }
-      return $ratio;
+      return '300';
     }
 
     public function register(\Slim\App $app) {
