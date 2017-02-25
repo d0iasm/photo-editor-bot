@@ -62,12 +62,20 @@ class Route
                       fwrite($tempFile, $binaryImage->getRawBody());
 
                       try {
-                        $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
+                        // $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                         // $bot->replyMessage($event->getReplyToken(), $uploadURL);
 
                         // exec('python ../../python/filter.py');
+
+                        $result = $s3->putObject(array(
+                            'Bucket' => $bucket,
+                            'Key'    => 'hoge.jpg',
+                            'SourceFile'   => $tempFile,
+                            'ContentType'  => 'image/jpeg',
+                            'ACL'          => 'public-read',
+                          ));
 
                         $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/150x150.jpg');
                         // $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
