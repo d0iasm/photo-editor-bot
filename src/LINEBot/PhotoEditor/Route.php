@@ -20,13 +20,13 @@ use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route {
-    function resize($max, $width, $height) {
+    public function resize($max, $width, $height) {
       if ($max/$width > $max/$height) {
         $ratio = $max/$height;
       } else {
         $ratio = $max/$width;
       }
-      return '300';
+      return $ratio;
     }
 
     public function register(\Slim\App $app) {
