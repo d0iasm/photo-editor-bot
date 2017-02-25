@@ -67,8 +67,9 @@ class Route
                       ob_start();
                       imagepng($image);
                       $ei = ob_get_contents();
-                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($ei)));
                       ob_end_clean();
+
+                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($ei)));
 
                       try {
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
