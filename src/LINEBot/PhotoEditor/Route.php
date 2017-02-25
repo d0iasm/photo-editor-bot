@@ -109,6 +109,9 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
+                        $filtertypeText = new TextMessageBuilder($this->filtertype);
+                        $bot->replyMessage($event->getReplyToken(), $filtertypeText);
+
                         $editedImage = edit($originImage, $this->filtertype);
 
                         if (1024 < $height || 1024 < $width) {
