@@ -22,19 +22,19 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 $filtertype = IMG_FILTER_GRAYSCALE;
 
-function setFiltertype($filterName) {
-  if ($filterName == 'mono') {
-    $filtertype = IMG_FILTER_GRAYSCALE;
-  }else if ($filterName == 'nega') {
-    $filtertype = IMG_FILTER_NEGATE;
-  }else if ($filterName == 'edge') {
-    $filtertype = IMG_FILTER_EDGEDETECT;
-  }else if ($filterName == 'removal') {
-    $filtertype = IMG_FILTER_MEAN_REMOVAL;
-  }else if ($filterName == 'emboss') {
-    $filtertype = IMG_FILTER_EMBOSS;
-  }
-}
+// function setFiltertype($filterName) {
+//   if ($filterName == 'mono') {
+//     $filtertype = IMG_FILTER_GRAYSCALE;
+//   }else if ($filterName == 'nega') {
+//     $filtertype = IMG_FILTER_NEGATE;
+//   }else if ($filterName == 'edge') {
+//     $filtertype = IMG_FILTER_EDGEDETECT;
+//   }else if ($filterName == 'removal') {
+//     $filtertype = IMG_FILTER_MEAN_REMOVAL;
+//   }else if ($filterName == 'emboss') {
+//     $filtertype = IMG_FILTER_EMBOSS;
+//   }
+// }
 
 function edit($originImage) {
   ob_start();
