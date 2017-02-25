@@ -95,7 +95,7 @@ class Route {
                         //   ob_end_clean();
                         // }
                         if (240 < $height || 240 < $width) {
-                          $resizedImage = resize(240, $width, $height, $originImage);
+                          $resizedImage = $this->resize(240, $width, $height, $originImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         }
 
