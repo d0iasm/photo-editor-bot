@@ -75,29 +75,30 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        // if (240 < $height || 240 < $width) {
-                        //   if (240/$height < 240/$width) {
-                        //     $ratio = 240/$height;
-                        //   } else {
-                        //     $ratio = 240/$width;
-                        //   }
-                        //   ob_start();
-                        //   $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
-                        //   ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
-                        //   imagejpeg($resizedImage);
-                        //   $resizedImage = ob_get_contents();
-                        //   ob_end_clean();
-                        // }
                         if (240 < $height || 240 < $width) {
-                          $ratio = $this->resize(240, $width, $height);
+                          if (240/$height < 240/$width) {
+                            $ratio = 240/$height;
+                          } else {
+                            $ratio = 240/$width;
+                          }
                           ob_start();
                           $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
                           ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
                           imagejpeg($resizedImage);
                           $resizedImage = ob_get_contents();
                           ob_end_clean();
-                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         }
+                        $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                        // if (240 < $height || 240 < $width) {
+                        //   $ratio = $this->resize(240, $width, $height);
+                        //   ob_start();
+                        //   $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
+                        //   ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
+                        //   imagejpeg($resizedImage);
+                        //   $resizedImage = ob_get_contents();
+                        //   ob_end_clean();
+                        //   $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                        // }
 
                         // ob_start();
                         // imagejpeg($originImage);
