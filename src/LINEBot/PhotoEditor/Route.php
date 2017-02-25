@@ -94,9 +94,10 @@ class Route {
                         //   $resizedImage = ob_get_contents();
                         //   ob_end_clean();
                         // }
-                        // if (240 < $height || 240 < $width) {
-                        //   $resizedImage = resizedImage(240, $width, $height, $originImage);
-                        // }
+                        if (240 < $height || 240 < $width) {
+                          $resizedImage = resizedImage(240, $width, $height, $originImage);
+                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                        }
 
                         ob_start();
                         imagejpeg($originImage);
@@ -106,7 +107,6 @@ class Route {
                         ob_end_clean();
 
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
-                        $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
 
                         $replyText = new TextMessageBuilder('upload完了');
                         $bot->replyMessage($event->getReplyToken(), $replyText);
