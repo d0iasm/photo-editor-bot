@@ -85,8 +85,12 @@ class Route
 
                         $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(gd_info()["JPEG Support"]));
 
-                        $im = @imagecreatetruecolor(120, 20);
-                        $upload = $s3->upload($bucket, 'black.jpg', $im, 'public-read');
+                        list ($x, $y) = @getimagesize ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
+                        $img = @imagecreatefromjpeg ('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg');
+                        // $im = @imagecreatetruecolor(120, 20);
+                        $upload = $s3->upload($bucket, 'black.jpg', $img, 'public-read');
+
+                        imagedestroy($img);
 
                       //   $size = getimagesize('http://placehold.jp/150x150.jpg');
                       //   if ($size == false) {
