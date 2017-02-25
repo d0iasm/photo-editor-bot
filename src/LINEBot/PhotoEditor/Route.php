@@ -82,7 +82,7 @@ class Route
                         // }
                         // $oldlink = 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg';
                         // $newlink = str_replace('https://', 'http://', $oldlink);
-                        $size = getimagesize('http://placehold.jp/150x150.png');
+                        $size = getimagesize('http://placehold.jp/150x150.jpg');
                         if ($size == false) {
                           $imageSize = new TextMessageBuilder('失敗');
                           $bot -> replyMessage($event->getReplyToken(), $imageSize);
