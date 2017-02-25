@@ -61,7 +61,7 @@ function resize($max, $width, $height, $originImage) {
 }
 
 class Route {
-    $filtertype = IMG_FILTER_GRAYSCALE;
+    public $filtertype = IMG_FILTER_GRAYSCALE;
 
     public function register(\Slim\App $app) {
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
