@@ -127,8 +127,8 @@ class Route {
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', '', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono2 = new CarouselColumnTemplateBuilder('モノクロ', '', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $mono3 = new CarouselColumnTemplateBuilder('モノクロ', '', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
-                      $template = new CarouselTemplateBuilder('どんな加工にするか調整できます', [$mono, $mono2, $mono3]);
-                      $templateMessage = new TemplateMessageBuilder('どんな加工をするか調整できます', $template);
+                      $template = new CarouselTemplateBuilder([$mono, $mono2, $mono3]);
+                      $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }
                 }
