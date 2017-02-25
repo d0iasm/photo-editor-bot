@@ -76,7 +76,7 @@ class Route
                         $filename = stream_get_meta_data($tempFile)['uri'];
                         if (getimagesize($filename) == false) {
                           $imageSize = new TextMessageBuilder('画像サイズ取得失敗');
-                          $bot -> replyMessage($event->getReplyToken(), $imageSize);
+                          $bot -> replyMessage($event->getReplyToken(), $filename);
                         }else{
                           $size = getimagesize($tempFile);
                           $imageSize = new TextMessageBuilder($size);
