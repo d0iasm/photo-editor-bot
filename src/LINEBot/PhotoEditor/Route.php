@@ -15,7 +15,7 @@ use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder;
-use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
@@ -84,9 +84,9 @@ class Route {
                       fwrite($tempFile, $binaryImage->getRawBody());
 
                       try {
-                        $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
+                        $upload = $s3->upload($bucket, 'upload/raw_image.jpg', $tempFile, 'public-read');
 
-                        $originFilename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
+                        $originFilename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/raw_image.jpg";
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
@@ -96,18 +96,18 @@ class Route {
                           // XXX: 1024px以上の画像のリサイズを行うと真っ黒な画像になる
                           $resizedImage = resize(240, $width, $height, $editedImage);
                           // $editedImage = resize(1024, $width, $height, $editedImage);
-                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
-                          $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'upload/resized_image.jpg', $resizedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         } else if (240 < $height || 240 < $width) {
                           $resizedImage = resize(240, $width, $height, $editedImage);
-                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
-                          $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'upload/resized_image.jpg', $resizedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         } else {
-                          $upload = $s3->upload($bucket, 'resized_image.jpg', $editedImage, 'public-read');
-                          $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'upload/resized_image.jpg', $editedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'upload/edited_image.jpg', $editedImage, 'public-read');
                         }
 
-                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/resized_image.jpg');
+                        $editedImage = new ImageMessageBuilder('https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/edited_image.jpg', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/resized_image.jpg');
                         $bot->replyMessage($event->getReplyToken(), $editedImage);
 
                       } catch(\Aws\S3\Exception\S3Exception $e) {
@@ -123,8 +123,8 @@ class Route {
                     if(strpos($getText, '加工の調整をする') !== false){
                       $act1 = new MessageTemplateActionBuilder('labelHoge1', 'textHoge1');
                       $act2 = new MessageTemplateActionBuilder('labelHoge2', 'textHoge2');
-                      $template = new ConfirmTemplateBuilder('tempHoge', [$act1, $act2]);
-                      $templateMessage = new TemplateMessageBuilder('tempMsgHoge', $template);
+                      $template = new CarouselTemplateBuilder('tempHoge', [$act1, $act2]);
+                      $templateMessage = new TemplateMessageBuilder('どんな加工をするか調整できます', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }
                 }
