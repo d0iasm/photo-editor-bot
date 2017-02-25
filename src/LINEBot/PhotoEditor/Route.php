@@ -64,9 +64,9 @@ class Route
                       try {
                         $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
 
-                        $origin_filename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
-                        $image = imagecreatefromjpeg($origin_filename);
-                        list($width, $height, $type, $attr) = getimagesize($origin_filename);
+                        $originFilename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
+                        $originImage = imagecreatefromjpeg($originFilename);
+                        list($width, $height, $type, $attr) = getimagesize($originFilename);
                         $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder($width));
 
                         if (240 < $height || 240 < $width) {
@@ -75,18 +75,19 @@ class Route
                           } else {
                             $ratio = 240/$width;
                           }
-                          $resized_image = ImageCreateTrueColor((int)$width*$ratio, (int)$height*$ratio);
+                          $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
+                          ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
                         }
 
                         ob_start();
-                        imagejpeg($image);
-                        imagejpeg($resized_image);
+                        imagejpeg($originImage);
+                        imagejpeg($resizedImage);
                         $ei = ob_get_contents();
-                        $resized_image = ob_get_contents();
+                        $resizedImage = ob_get_contents();
                         ob_end_clean();
 
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
-                        $upload = $s3->upload($bucket, 'resized_image.jpg', $resized_image, 'public-read');
+                        $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
                         // $bot->replyMessage($event->getReplyToken(), $uploadURL);
