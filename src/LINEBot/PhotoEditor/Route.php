@@ -61,17 +61,17 @@ class Route
                       $tempFile = tmpfile();
                       fwrite($tempFile, $binaryImage->getRawBody());
 
-                      $img = imagecreatetruecolor(400, 300);
-                      $bg = imagecolorallocate($img, 0, 0, 0);
-                      $text_color = imagecolorallocate($img, 255, 0, 0);
-                      imagefilledellipse($img, 200, 150, 300, 200, $text_color);
-                      // $tempFile2 = tmpfile();
-                      // fwrite($tempFile2, $img);
-                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($img)));
-                      imagedestroy($img);
+                      $origin_filename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
+                      $image = imagecreatefromjpeg($origin_filename);
+                      list($width, $height, $type, $attr) = getimagesize($origin_filename);
+                      ob_start();
+                      imagepng($image);
+                      $ei = ob_get_contents();
+                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($ei)));
+                      ob_end_clean();
 
                       try {
-                        $upload = $s3->upload($bucket, 'black.jpg', $img, 'public-read');
+                        $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
                         $upload = $s3->upload($bucket, 'raw_image.jpg', $tempFile, 'public-read');
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
