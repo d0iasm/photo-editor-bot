@@ -81,7 +81,15 @@ class Route {
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $originImage2 = $originImage;
+                        $editedImage = $originImage;
+                        ob_start();
+                        imagefilter($editedImage, IMG_FILTER_GRAYSCALE);
+                        imagejpeg($editedImage);
+                        $editedImage = ob_get_contents();
+                        ob_end_clean();
+
+                        $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
+
                         if (240 < $height || 240 < $width) {
                           // if (240/$height < 240/$width) {
                           //   $ratio = 240/$height;
@@ -96,6 +104,8 @@ class Route {
                           // ob_end_clean();
                           $resizedImage = resize(240, $width, $height, $originImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                        } else {
+                          // editedImage をそのままresize_imageとして送信
                         }
                         // if (240 < $height || 240 < $width) {
                         //   $ratio = $this->resize(240, $width, $height);
@@ -117,7 +127,7 @@ class Route {
 
                         // $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
 
-                        $replyText = new TextMessageBuilder(resize(240, $width, $height, $originImage2));
+                        $replyText = new TextMessageBuilder('upload完了');
                         $bot->replyMessage($event->getReplyToken(), $replyText);
 
                         // $uploadURL = new TextMessageBuilder($upload->get('ObjectURL'));
