@@ -138,7 +138,7 @@ class Route {
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      setFiltertype('emboss');
+                      setFiltertype('edge');
                       $act1 = new MessageTemplateActionBuilder($GLOBALS['filtertype'], IMG_FILTER_EMBOSS);
                       $act2 = new MessageTemplateActionBuilder('label', 'text');
                       $mono = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-us-west-2.amazonaws.com/lineapitest/hamburger_240.jpeg', [$act1, $act2]);
