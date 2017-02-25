@@ -65,11 +65,9 @@ class Route
                       $image = imagecreatefromjpeg($origin_filename);
                       list($width, $height, $type, $attr) = getimagesize($origin_filename);
                       ob_start();
-                      imagepng($image);
+                      imagejpeg($image);
                       $ei = ob_get_contents();
                       ob_end_clean();
-
-                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder(get_resource_type($ei)));
 
                       try {
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
