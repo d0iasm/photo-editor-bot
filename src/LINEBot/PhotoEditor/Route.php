@@ -74,16 +74,20 @@ class Route
                           } else {
                             $ratio = 240/$width;
                           }
+                          ob_start();
                           $resizedImage = imagecreatetruecolor((int)$width*$ratio, (int)$height*$ratio);
                           ImageCopyResampled($resizedImage, $originImage, 0, 0, 0, 0, (int)$width*$ratio, (int)$height*$ratio, $width, $height);
                           $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder((int)$width*$ratio));
+                          imagejpeg($resizedImage);
+                          $resizedImage = ob_get_contents();
+                          ob_end_clean();
                         }
 
                         ob_start();
                         imagejpeg($originImage);
-                        imagejpeg($resizedImage);
+                        // imagejpeg($resizedImage);
                         $ei = ob_get_contents();
-                        $resizedImage = ob_get_contents();
+                        // $resizedImage = ob_get_contents();
                         ob_end_clean();
 
                         $upload = $s3->upload($bucket, 'black.jpg', $ei, 'public-read');
