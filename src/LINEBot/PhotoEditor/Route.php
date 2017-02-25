@@ -24,21 +24,21 @@ $filtertype = IMG_FILTER_GRAYSCALE;
 
 function setFiltertype($filterName) {
   if ($filterName == 'mono') {
-    $filtertype = IMG_FILTER_GRAYSCALE;
+    $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
   }else if ($filterName == 'nega') {
-    $filtertype = IMG_FILTER_NEGATE;
+    $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
   }else if ($filterName == 'edge') {
-    $filtertype = IMG_FILTER_EDGEDETECT;
+    $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
   }else if ($filterName == 'removal') {
-    $filtertype = IMG_FILTER_MEAN_REMOVAL;
+    $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
   }else if ($filterName == 'emboss') {
-    $filtertype = IMG_FILTER_EMBOSS;
+    $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
   }
 }
 
 function edit($originImage) {
   ob_start();
-  imagefilter($originImage, $filtertype);
+  imagefilter($originImage, $GLOBALS['filtertype']);
   imagejpeg($originImage);
   $editedImage = ob_get_contents();
   ob_end_clean();
