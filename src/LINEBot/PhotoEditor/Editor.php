@@ -4,14 +4,18 @@ namespace LINE\LINEBot\PhotoEditor;
 class Editor
 {
   public static $filtertype = IMG_FILTER_GRAYSCALE;
-  public $num = 0;
+  private $num = 0;
 
   public function __construct() {}
+
+  public function addNum(){
+    $editor->num += 3;
+  }
 
   public function testMethod()
   {
     $editor = self::getInstance();
-    $editor->num += 3;
+    $editor->addNum();
     return $editor->num;
   }
 
