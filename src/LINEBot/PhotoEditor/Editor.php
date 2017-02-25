@@ -4,14 +4,15 @@ namespace LINE\LINEBot\PhotoEditor;
 class Editor
 {
   public static $filtertype = IMG_FILTER_GRAYSCALE;
+  public $num = 0;
 
   public function __construct() {}
 
   public function testMethod()
   {
-      static $num = 0;
-      $num++;
-      return $num;
+    $editor = self::getInstance();
+    $editor->num += 1;
+    return $editor->num;
   }
 
   public function setFiltertype($filterName) {
@@ -56,11 +57,11 @@ class Editor
     return $resizedImage;
   }
 
-  // public static function getInstance() {
-  //   static $instance;
-  //   if ($instance === null) {
-  //     $instance = new self();
-  //   }
-  //   return $instance;
-  // }
+  public static function getInstance() {
+    static $instance;
+    if ($instance === null) {
+      $instance = new self();
+    }
+    return $instance;
+  }
 }

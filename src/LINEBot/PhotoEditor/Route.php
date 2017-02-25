@@ -28,8 +28,7 @@ class Route
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
-            // $editor = Editor::getInstance();
-            $editor = new Editor();
+            $editor = Editor::getInstance();
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
             if (empty($signature)) {
