@@ -102,7 +102,7 @@ class Route {
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
                         } else {
-                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
+                          $upload = $s3->upload($bucket, 'resized_image.jpg', $editedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'edited_image.jpg', $editedImage, 'public-read');
                         }
 
