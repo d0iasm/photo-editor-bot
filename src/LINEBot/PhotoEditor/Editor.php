@@ -7,6 +7,12 @@ class Editor
 
   private function __construct() {}
 
+  public function testMethod()
+  {
+      static $num = 0;
+      $num++;
+  }
+
   public function setFiltertype($filterName) {
     if ($filterName == 'mono') {
       self::$filtertype = IMG_FILTER_GRAYSCALE;
