@@ -16,6 +16,7 @@ use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
@@ -123,7 +124,10 @@ class Route {
                     if(strpos($getText, '加工の調整をする') !== false){
                       $act1 = new MessageTemplateActionBuilder('labelHoge1', 'textHoge1');
                       $act2 = new MessageTemplateActionBuilder('labelHoge2', 'textHoge2');
-                      $template = new CarouselTemplateBuilder('tempHoge', [$act1, $act2]);
+                      $mono = new CarouselColumnTemplateBuilder('モノクロ', '', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
+                      $mono2 = new CarouselColumnTemplateBuilder('モノクロ', '', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
+                      $mono3 = new CarouselColumnTemplateBuilder('モノクロ', '', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
+                      $template = new CarouselTemplateBuilder('どんな加工にするか調整できます', [$mono, $mono2, $mono3]);
                       $templateMessage = new TemplateMessageBuilder('どんな加工をするか調整できます', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }
