@@ -93,10 +93,10 @@ class Route {
                         $editedImage = edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
-                          $resizedImage = resize(240, $width, $height, $editedImage);
                           $resizedEditedImage = resize(1024, $width, $height, $editedImage);
-                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                           $upload = $s3->upload($bucket, 'edited_image.jpg', $resizedEditedImage, 'public-read');
+                          $resizedImage = resize(240, $width, $height, $resizedEditedImage);
+                          $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
                         } else if (240 < $height || 240 < $width) {
                           $resizedImage = resize(240, $width, $height, $editedImage);
                           $upload = $s3->upload($bucket, 'resized_image.jpg', $resizedImage, 'public-read');
