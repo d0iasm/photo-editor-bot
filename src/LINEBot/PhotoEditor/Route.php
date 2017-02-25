@@ -36,7 +36,7 @@ function setFiltertype($filterName) {
   }
 }
 
-function edit($originImage, $filtertype) {
+function edit($originImage) {
   ob_start();
   imagefilter($originImage, $filtertype);
   imagejpeg($originImage);
