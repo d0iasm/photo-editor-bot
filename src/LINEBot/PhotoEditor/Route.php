@@ -64,8 +64,9 @@ class Route
                       $origin_filename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/raw_image.jpg";
                       $image = imagecreatefromjpeg($origin_filename);
                       list($width, $height, $type, $attr) = getimagesize($origin_filename);
+                      $bot -> replyMessage($event->getReplyToken(), new TextMessageBuilder($width));
                       ob_start();
-                      // imagejpeg($image);
+                      imagejpeg($image);
                       $ei = ob_get_contents();
                       ob_end_clean();
 
