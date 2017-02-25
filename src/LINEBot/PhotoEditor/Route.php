@@ -28,7 +28,7 @@ class Route
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
-
+            $editor = Editor::getInstance();
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
             if (empty($signature)) {
@@ -70,7 +70,6 @@ class Route
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        $editor = new Editor();
                         $editedImage = $editor->edit($originImage);
 
                         if (1024 < $height || 1024 < $width) {
@@ -111,7 +110,7 @@ class Route
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      setFiltertype('emboss');
+                      $editor->setFiltertype('emboss');
                     }
                 }
             }
