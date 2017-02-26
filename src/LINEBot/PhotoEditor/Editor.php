@@ -33,7 +33,7 @@ class Editor
       $this->setFilterNum(IMG_FILTER_BRIGHTNESS, $filterArg);
     }else if (strpos($filterName, 'blur') !== false) {
       $this->setFilterNum(IMG_FILTER_GAUSSIAN_BLUR, $filterArg);
-    }else if (strpos($filterName, 'removal') !== false) {
+    }else if (strpos($filterName, 'sketch') !== false) {
       $this->setFilterNum(IMG_FILTER_MEAN_REMOVAL, $filterArg);
     }else if (strpos($filterName, 'pixelate') !== false) {
       $this->setFilterNum(IMG_FILTER_PIXELATE, $filterArg);

@@ -104,26 +104,26 @@ class Route
                       $commonAct = new MessageTemplateActionBuilder('変更しない', '> 変更しない');
 
                       $brightAct = new MessageTemplateActionBuilder('このフィルターを使う', '> 輝度を変更する');
-                      $bright = new CarouselColumnTemplateBuilder('bright', '輝度を変更する', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/nega.jpg', [$brightAct, $commonAct]);
+                      $bright = new CarouselColumnTemplateBuilder('bright', '輝度を変更する', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/bright.jpg', [$brightAct, $commonAct]);
 
                       $blurAct = new MessageTemplateActionBuilder('このフィルターを使う', '> 画像をぼかす');
-                      $blur = new CarouselColumnTemplateBuilder('blur', '画像をぼかす', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/emboss.jpg', [$blurAct, $commonAct]);
+                      $blur = new CarouselColumnTemplateBuilder('blur', '画像をぼかす', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/blur.jpg', [$blurAct, $commonAct]);
 
-                      $removalAct = new MessageTemplateActionBuilder('このフィルターを使う', '> スケッチ風にする');
-                      $removal = new CarouselColumnTemplateBuilder('removal', 'スケッチ風にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$removalAct, $commonAct]);
+                      $sketchAct = new MessageTemplateActionBuilder('このフィルターを使う', '> スケッチ風にする');
+                      $sketch = new CarouselColumnTemplateBuilder('sketch', 'スケッチ風にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/sketch.jpg', [$sketchAct, $commonAct]);
 
                       $pixelateAct = new MessageTemplateActionBuilder('このフィルターを使う', '> モザイクをかける');
-                      $pixelate = new CarouselColumnTemplateBuilder('pixelate', 'モザイクをかける', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$pixelateAct, $commonAct]);
+                      $pixelate = new CarouselColumnTemplateBuilder('pixelate', 'モザイクをかける', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pixelate.jpg', [$pixelateAct, $commonAct]);
 
                       $monoAct = new MessageTemplateActionBuilder('このフィルターを使う', '> モノクロ画像にする');
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$monoAct, $commonAct]);
 
-                      $template = new CarouselTemplateBuilder([$bright, $blur, $removal, $pixelate, $mono]);
+                      $template = new CarouselTemplateBuilder([$bright, $blur, $sketch, $pixelate, $mono]);
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
 
                     }else if(strpos($getText, '> 輝度を変更する') !== false){
-                      $editor->setFiltertype('bright', 100);
+                      $editor->setFiltertype('bright', 50);
                       $replyText = new TextMessageBuilder('bright加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> 画像をぼかす') !== false){
@@ -131,8 +131,8 @@ class Route
                       $replyText = new TextMessageBuilder('blur加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> スケッチ風にする') !== false){
-                      $editor->setFiltertype('removal', -999);
-                      $replyText = new TextMessageBuilder('removal加工に変更しました');
+                      $editor->setFiltertype('sketch', -999);
+                      $replyText = new TextMessageBuilder('sketch加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> モザイクをかける') !== false){
                       $editor->setFiltertype('pixelate', 10);
