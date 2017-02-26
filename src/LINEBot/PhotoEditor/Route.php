@@ -102,7 +102,8 @@ class Route
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, 'ヘルプ') !== false){
-                      $replyText = new TextMessageBuilder("PhotoEditorをご使用いただき、ありがとうございます。\nグループで写真をやりとりする際に送信とフィルター加工を同時にできます。「 フィルター調整 」とメッセージを送るか、下記メニューからフィルターを調整できます。\n\n※ グループチャットではメニューが表示されません。\n※ フィルタリングを行なっている場合、データが受信できないことがあります。");
+                      $helpText = "PhotoEditorをご使用いただき、ありがとうございます。""\nグループで写真をやりとりする際に送信とフィルター加工を同時にできます。「 フィルター調整 」とメッセージを送るか、下記メニューからフィルターを調整できます。\n\n※ グループチャットではメニューが表示されません。\n※ フィルタリングを行なっている場合、データが受信できないことがあります。";
+                      $replyText = new TextMessageBuilder($helpText);
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
 
