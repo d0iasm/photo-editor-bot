@@ -101,7 +101,15 @@ class Route
 
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
-                    if(strpos($getText, '> 加工の調整をする') !== false){
+                    if(strpos($getText, 'ヘルプ') !== false){
+                      $replyText = new TextMessageBuilder('PhotoEditorをご使用いただき、ありがとうございます。
+                      グループで写真をやりとりする際に送信とフィルター加工を同時にできます。「 フィルター調整 」とメッセージを送るか、下記メニューからフィルターを調整できます。
+                      ※ グループチャットではメニューが表示されません。
+                      ※ フィルタリングを行なっている場合、データが受信できないことがあります。');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }
+
+                    if(strpos($getText, '> 加工の調整をする') !== false || strpos($getText, 'フィルター調整') !== false){
                       $commonAct = new MessageTemplateActionBuilder('変更しない', '> 変更しない');
 
                       $brightAct = new MessageTemplateActionBuilder('このフィルターを使う', '> 輝度を変更する');
