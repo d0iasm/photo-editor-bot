@@ -23,7 +23,7 @@ class Editor
     }else if (strpos($filterName, 'emboss') !== false) {
       $this->filtertype = IMG_FILTER_EMBOSS;
     }
-    return $this->filtertype;
+    return var_dump($this->filtertype);
   }
 
   public function getFiltertype() {
