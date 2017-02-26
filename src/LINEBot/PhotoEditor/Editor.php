@@ -55,7 +55,7 @@ class Editor
 
   public static function getInstance() {
     static $instance;
-    if ($instance === null) {
+    if (!isset($instance)) {
       $instance = new self();
     }
     return $instance;
