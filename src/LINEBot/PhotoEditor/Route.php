@@ -30,7 +30,11 @@ class Route
         // $editor = Editor::getInstance();
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
-            $editor = Editor::getInstance();
+            if (is_null($editor)) {
+              $replyText = new TextMessageBuilder('$editorの中身空っぽ！');
+              $bot->replyMessage($event->getReplyToken(), $replyText);
+              $editor = Editor::getInstance();
+            }
             $bot = $this->bot;
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
