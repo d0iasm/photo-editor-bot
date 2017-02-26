@@ -101,7 +101,7 @@ class Route
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      $act1 = new MessageTemplateActionBuilder($editor->getFiltertype(), IMG_FILTER_NEGATE);
+                      $act1 = new MessageTemplateActionBuilder(var_dump($editor->getFiltertype()), IMG_FILTER_NEGATE);
                       $act2 = new MessageTemplateActionBuilder('emboss', 'emboss');
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $nega = new CarouselColumnTemplateBuilder('nega', '色を反転させる', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/nega.jpg', [$act1, $act2]);
