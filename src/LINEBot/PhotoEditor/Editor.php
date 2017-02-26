@@ -6,15 +6,21 @@ class Editor
   private static $instance = null;
   private function __construct() {}
 
-  public function setFilterNum($num){
+  public function setFilterNum($num, $arg){
     $s3 = \Aws\S3\S3Client::factory();
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
     try {
-      $result = $s3->putObject(array(
+      $numResult = $s3->putObject(array(
         'Bucket' => $bucket,
         'Key'    => 'data/filter_num.txt',
         'Body'   => strval($num),
+        'ACL'    => 'public-read'
+      ));
+      $argResult = $s3->putObject(array(
+        'Bucket' => $bucket,
+        'Key'    => 'data/filter_arg.txt',
+        'Body'   => strval($arg),
         'ACL'    => 'public-read'
       ));
     } catch (S3Exception $e) {
@@ -22,17 +28,17 @@ class Editor
     }
   }
 
-  public function setFiltertype($filterName) {
+  public function setFiltertype($filterName, $filterArg) {
     if (strpos($filterName, 'bright') !== false) {
-      $this->setFilterNum(IMG_FILTER_BRIGHTNESS);
+      $this->setFilterNum(IMG_FILTER_BRIGHTNESS, $filterArg);
     }else if (strpos($filterName, 'blur') !== false) {
-      $this->setFilterNum(IMG_FILTER_GAUSSIAN_BLUR);
+      $this->setFilterNum(IMG_FILTER_GAUSSIAN_BLUR, $filterArg);
     }else if (strpos($filterName, 'removal') !== false) {
-      $this->setFilterNum(IMG_FILTER_MEAN_REMOVAL);
+      $this->setFilterNum(IMG_FILTER_MEAN_REMOVAL, $filterArg);
     }else if (strpos($filterName, 'pixelate') !== false) {
-      $this->setFilterNum(IMG_FILTER_PIXELATE);
+      $this->setFilterNum(IMG_FILTER_PIXELATE, $filterArg);
     }else if (strpos($filterName, 'mono') !== false) {
-      $this->setFilterNum(IMG_FILTER_GRAYSCALE);
+      $this->setFilterNum(IMG_FILTER_GRAYSCALE, $filterArg);
     }
   }
 
@@ -41,20 +47,36 @@ class Editor
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
     try {
-      $result = $s3->getObject(array(
+      $numResult = $s3->getObject(array(
         'Bucket' => $bucket,
         'Key'    => 'data/filter_num.txt'
       ));
-      header("Content-Type: {$result['ContentType']}");
-      return (int)strval($result['Body']);
+      $argResult = $s3->getObject(array(
+        'Bucket' => $bucket,
+        'Key'    => 'data/filter_arg.txt'
+      ));
+      header("Content-Type: {$filterResult['ContentType']}");
+      return {(int)strval($filterNumResult['Body']), (int)strval($filterArgResult['Body'])};
     } catch (S3Exception $e) {
       echo $e->getMessage() . "\n";
     }
   }
 
   public function edit($originImage) {
+    $filterType = array(
+      'num' => $this->getFiltertype()[0],
+      'arg' => $this->getFiltertype()[1]
+    );
+    if($filterType['arg'] == -999){
+      ob_start();
+      imagefilter($originImage, $filterType['num']);
+      imagejpeg($originImage);
+      $editedImage = ob_get_contents();
+      ob_end_clean();
+      return $editedImage;
+    }
     ob_start();
-    imagefilter($originImage, $this->getFiltertype());
+    imagefilter($originImage, $filterType['num'], $filterType['arg']);
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();

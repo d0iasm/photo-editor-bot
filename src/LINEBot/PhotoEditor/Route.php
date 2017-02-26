@@ -123,23 +123,23 @@ class Route
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
 
                     }else if(strpos($getText, '> 輝度を変更する') !== false){
-                      $editor->setFiltertype('bright');
+                      $editor->setFiltertype('bright', 100);
                       $replyText = new TextMessageBuilder('bright加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> 画像をぼかす') !== false){
-                      $editor->setFiltertype('blur');
+                      $editor->setFiltertype('blur', -999);
                       $replyText = new TextMessageBuilder('blur加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> スケッチ風にする') !== false){
-                      $editor->setFiltertype('removal');
+                      $editor->setFiltertype('removal', -999);
                       $replyText = new TextMessageBuilder('removal加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> モザイクをかける') !== false){
-                      $editor->setFiltertype('pixelate');
+                      $editor->setFiltertype('pixelate', 10);
                       $replyText = new TextMessageBuilder('pixelate加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> モノクロ画像にする') !== false){
-                      $editor->setFiltertype('mono');
+                      $editor->setFiltertype('mono', -999);
                       $replyText = new TextMessageBuilder('mono加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
