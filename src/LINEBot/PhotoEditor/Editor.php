@@ -15,11 +15,16 @@ class Editor
     $s3 = \Aws\S3\S3Client::factory();
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
+    // $result = $s3->putObject(array(
+    //   'Bucket' => $bucket,
+    //   'Key'    => 'data/num.txt',
+    //   'Body'   => $num,
+    //   'ACL'    => 'public-read'
+    // ));
     $result = $s3->putObject(array(
       'Bucket' => $bucket,
       'Key'    => 'data/num.txt',
-      'Body'   => $num,
-      'ACL'    => 'public-read'
+      'Body'   => 'Hello, world!'
     ));
     $this->testNum = $num;
     return 'setNum OK';
