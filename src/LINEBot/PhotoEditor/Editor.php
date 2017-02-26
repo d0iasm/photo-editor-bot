@@ -10,22 +10,24 @@ class Editor
 
   public function setFiltertype($filterName) {
     // static $filtertype = IMG_FILTER_GRAYSCALE;
+    global $filtertype;
     if (strpos($filterName, 'gray') !== false) {
-      &$filtertype = IMG_FILTER_GRAYSCALE;
+      $filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
-      &$filtertype = IMG_FILTER_NEGATE;
+      $filtertype = IMG_FILTER_NEGATE;
     }else if (strpos($filterName, 'edge') !== false) {
-      &$filtertype = IMG_FILTER_EDGEDETECT;
+      $filtertype = IMG_FILTER_EDGEDETECT;
     }else if (strpos($filterName, 'removal') !== false) {
-      &$filtertype = IMG_FILTER_MEAN_REMOVAL;
+      $filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      &$filtertype = IMG_FILTER_EMBOSS;
+      $filtertype = IMG_FILTER_EMBOSS;
     }
     return $filtertype;
   }
 
   public function getFiltertype() {
-    return $this->filtertype;
+    global $filtertype;
+    return $filtertype;
   }
 
   public function edit($originImage) {
