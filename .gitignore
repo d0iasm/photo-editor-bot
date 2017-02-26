@@ -1,7 +1,8 @@
 /vendor/*
 /.c9/*
 /.git/*
-php.ini
+/php.ini
+/php_errors.log
 !/logs/.gitkeep
 /logs/*
 /images/*
