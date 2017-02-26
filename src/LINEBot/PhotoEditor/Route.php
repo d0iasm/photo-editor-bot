@@ -132,7 +132,7 @@ EOT;
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$monoAct, $commonAct]);
 
                       $template = new CarouselTemplateBuilder([$bright, $blur, $sketch, $pixelate, $mono]);
-                      $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます', $template);
+                      $templateMessage = new TemplateMessageBuilder('どんなフィルターを使うか選ぶことができます', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
 
                     }else if(strpos($getText, '> 輝度を変更する') !== false){
