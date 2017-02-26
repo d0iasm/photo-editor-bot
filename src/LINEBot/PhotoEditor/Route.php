@@ -28,7 +28,7 @@ class Route
     public function register(\Slim\App $app)
     {
         // $editor = Editor::getInstance();
-        $editor;
+        static $editor;
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
