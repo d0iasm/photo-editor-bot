@@ -4,6 +4,8 @@ namespace LINE\LINEBot\PhotoEditor;
 class Editor
 {
   // private static $filtertype = IMG_FILTER_GRAYSCALE;
+  private static $instance == null;
+
   private $filtertype = IMG_FILTER_GRAYSCALE;
 
   private $testNum = 1;
@@ -66,10 +68,9 @@ class Editor
   }
 
   public static function getInstance() {
-    static $instance;
-    if (!isset($instance)) {
-      $instance = new self();
+    if (is_null(self::$instance)) {
+      self::$instance = new self();
     }
-    return $instance;
+    return self::$instance;
   }
 }
