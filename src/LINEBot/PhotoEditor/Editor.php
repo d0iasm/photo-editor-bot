@@ -3,7 +3,7 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private static $filtertype;
+  private static $filtertype = IMG_FILTER_GRAYSCALE;
 
   private function __construct() {}
 
@@ -21,6 +21,7 @@ class Editor
     }else{
       self::$filtertype = IMG_FILTER_EDGEDETECT;
     }
+    return 'setFiltertype()完了';
   }
 
   public function getFiltertype() {
