@@ -15,6 +15,7 @@ class Editor
 
   public function __set($name, $value){
     $this->data[$name] = $value;
+    return 'setOK';
   }
 
   public function __get($name){
