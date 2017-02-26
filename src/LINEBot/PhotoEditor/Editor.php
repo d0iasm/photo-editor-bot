@@ -20,7 +20,7 @@ class Editor
       self::$filtertype = IMG_FILTER_EMBOSS;
     }
     self::$filtertype = IMG_FILTER_EMBOSS;
-    return 'setFiltertype()完了';
+    return self::$filtertype;
   }
 
   public function getFiltertype() {
