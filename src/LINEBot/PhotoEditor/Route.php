@@ -30,11 +30,6 @@ class Route
         // $editor = Editor::getInstance();
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
-            if (empty($editor)) {
-              $replyText = new TextMessageBuilder('$editorの中身空っぽ！');
-              $bot->replyMessage($event->getReplyToken(), $replyText);
-              $editor = Editor::getInstance();
-            }
             $bot = $this->bot;
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
@@ -77,9 +72,10 @@ class Route
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
 
-                        if (is_null($editor)) {
+                        if (empty($editor)) {
                           $replyText = new TextMessageBuilder('$editorの中身空っぽ！');
                           $bot->replyMessage($event->getReplyToken(), $replyText);
+                          $editor = Editor::getInstance();
                         }
 
                         $editedImage = $editor->edit($originImage);
