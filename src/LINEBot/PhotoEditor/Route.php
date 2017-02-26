@@ -21,8 +21,6 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
-$editor = Editor::getInstance();
-
 class Route
 {
     public function register(\Slim\App $app)
