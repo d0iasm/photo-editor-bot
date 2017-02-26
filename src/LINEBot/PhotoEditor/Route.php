@@ -130,7 +130,7 @@ EOT;
                         $currentFilterName = 'mono';
                       }
 $currentFilterText = <<<"EOT"
-現在のフィルターは { $currentFilterName } です。
+現在のフィルターは $currentFilterName です。
 EOT;
                       $replyText = new TextMessageBuilder($currentFilterText);
                       $bot->replyMessage($event->getReplyToken(), $replyText);
