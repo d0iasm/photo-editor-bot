@@ -55,8 +55,8 @@ class Editor
         'Bucket' => $bucket,
         'Key'    => 'data/filter_arg.txt'
       ));
-      header("Content-Type: {$filterResult['ContentType']}");
-      return {(int)strval($filterNumResult['Body']), (int)strval($filterArgResult['Body'])};
+      header("Content-Type: {$numResult['ContentType']}");
+      return array((int)strval($numResult['Body']), (int)strval($argResult['Body']));
     } catch (S3Exception $e) {
       echo $e->getMessage() . "\n";
     }
