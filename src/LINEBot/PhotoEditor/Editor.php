@@ -21,11 +21,11 @@ class Editor
       $filtertype = IMG_FILTER_EMBOSS;
     }
     $filtertype = IMG_FILTER_EMBOSS;
-    return $filtertype;
+    return self::$filtertype;
   }
 
   public function getFiltertype() {
-    return $filtertype;
+    return self::$filtertype;
   }
 
   public function edit($originImage) {
