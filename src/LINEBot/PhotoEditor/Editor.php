@@ -3,9 +3,11 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private static $filtertype = IMG_FILTER_GRAYSCALE;
+  private static $filtertype;
 
-  private function __construct() {}
+  private function __construct() {
+    self::$filtertype = IMG_FILTER_GRAYSCALE;
+  }
 
   public function setFiltertype($filterName) {
     if (strpos($filterName, 'gray') !== false) {
@@ -50,7 +52,7 @@ class Editor
     ob_end_clean();
     return $resizedImage;
   }
-  
+
   public static function getInstance() {
     static $instance;
     if ($instance === null) {
