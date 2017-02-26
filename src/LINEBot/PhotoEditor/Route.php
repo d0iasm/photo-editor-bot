@@ -16,6 +16,7 @@ use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
@@ -119,13 +120,16 @@ class Route
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$monoAct, $commonAct]);
 
                       $template = new CarouselTemplateBuilder([$bright, $blur, $sketch, $pixelate, $mono]);
-                      $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
+                      $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
 
                     }else if(strpos($getText, '> 輝度を変更する') !== false){
-                      $editor->setFiltertype('bright', 50);
-                      $replyText = new TextMessageBuilder('bright加工に変更しました');
-                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                      $brightAct1 = new MessageTemplateActionBuilder('高輝度', '> 輝度を高くする');
+                      $brightAct2 = new MessageTemplateActionBuilder('中輝度', '> 輝度を戻す');
+                      $brightAct3 = new MessageTemplateActionBuilder('低輝度', '> 輝度を低くする');
+                      $brightDetail = new ButtonTemplateBuilder('bright', '明るさの調整ができます', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/bright.jpg', [$brightAct1, $brightAct2, $brightAct3]);
+                      $templateMessage = new TemplateMessageBuilder('明るさの調節ができます', $brightDetail);
+                      $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, '> 画像をぼかす') !== false){
                       $editor->setFiltertype('blur', -999);
                       $replyText = new TextMessageBuilder('blur加工に変更しました');
@@ -135,12 +139,34 @@ class Route
                       $replyText = new TextMessageBuilder('sketch加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, '> モザイクをかける') !== false){
-                      $editor->setFiltertype('pixelate', 10);
-                      $replyText = new TextMessageBuilder('pixelate加工に変更しました');
-                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                      $pixelateAct1 = new MessageTemplateActionBuilder('細かく', '> モザイクを細かくする');
+                      $pixelateAct3 = new MessageTemplateActionBuilder('大きく', '> モザイクを大きくする');
+                      $pixelateDetail = new ButtonTemplateBuilder('pixelate', 'モザイクの大きさの調整ができます', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pixelate.jpg', [$pixelateAct1, $pixelateAct2, $pixelateAct3]);
+                      $templateMessage = new TemplateMessageBuilder('モザイクの大きさの調整ができます', $pixelateDetail);
+                      $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, '> モノクロ画像にする') !== false){
                       $editor->setFiltertype('mono', -999);
                       $replyText = new TextMessageBuilder('mono加工に変更しました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if(strpos($getText, '> 輝度を高くする'){
+                      $editor->setFiltertype('bright', 50);
+                      $replyText = new TextMessageBuilder('bright加工を明るくしました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if(strpos($getText, '> 輝度を戻す'){
+                      $editor->setFiltertype('bright', 0);
+                      $replyText = new TextMessageBuilder('bright加工を戻しました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if(strpos($getText, '> 輝度を低くする'){
+                      $editor->setFiltertype('bright', -50);
+                      $replyText = new TextMessageBuilder('bright加工を暗くしました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if(strpos($getText, '> モザイクを細かくする'){
+                      $editor->setFiltertype('pixelate', 3);
+                      $replyText = new TextMessageBuilder('pixelate加工を細かくしました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if(strpos($getText, '> モザイクを大きくする'){
+                      $editor->setFiltertype('pixelate', 15);
+                      $replyText = new TextMessageBuilder('pixelate加工を大きくしました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
                 }
