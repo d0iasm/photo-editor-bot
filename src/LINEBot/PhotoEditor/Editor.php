@@ -3,7 +3,7 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private static $filtertype = IMG_FILTER_GRAYSCALE;
+  private static $filtertype;
 
   private function __construct() {}
 
