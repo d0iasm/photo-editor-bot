@@ -15,24 +15,35 @@ class Editor
     $s3 = \Aws\S3\S3Client::factory();
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
-    $result = $s3->putObject(array(
-      'Bucket' => $bucket,
-      'Key'    => 'data/num.txt',
-      'Body'   => strval($num),
-      'ACL'    => 'public-read'
-    ));
+    try {
+      $result = $s3->putObject(array(
+        'Bucket' => $bucket,
+        'Key'    => 'data/num.txt',
+        'Body'   => strval($num),
+        'ACL'    => 'public-read'
+      ));
+    } catch (S3Exception $e) {
+      echo $e->getMessage() . "\n";
+    }
   }
 
   public function getNum(){
     $s3 = \Aws\S3\S3Client::factory();
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
-    $result = $s3->getObject(array(
-      'Bucket' => $bucket,
-      'Key'    => 'data/num.txt'
-    ));
+    try {
 
-    return $result['Body'];
+      $result = $s3->getObject(array(
+        'Bucket' => $bucket,
+        'Key'    => 'data/num.txt'
+      ));
+
+      header("Content-Type: {$result['ContentType']}");
+      return $result['Body'];
+
+    } catch (S3Exception $e) {
+      echo $e->getMessage() . "\n";
+    }
   }
 
   public function setFiltertype($filterName) {
