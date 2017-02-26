@@ -3,7 +3,7 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private static $filtertype = IMG_FILTER_GRAYSCALE;
+  // private static $filtertype = IMG_FILTER_GRAYSCALE;
 
   private function __construct() {}
 
@@ -20,12 +20,11 @@ class Editor
     }else if (strpos($filterName, 'emboss') !== false) {
       $filtertype = IMG_FILTER_EMBOSS;
     }
-    $filtertype = IMG_FILTER_EMBOSS;
-    return self::$filtertype;
+    return $filtertype;
   }
 
   public function getFiltertype() {
-    return self::$filtertype;
+    return $this->setFiltertype('none');
   }
 
   public function edit($originImage) {
