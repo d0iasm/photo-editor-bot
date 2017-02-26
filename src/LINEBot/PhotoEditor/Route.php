@@ -27,11 +27,10 @@ class Route
 {
     public function register(\Slim\App $app)
     {
-        // $editor = Editor::getInstance();
-        static $editor;
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
+            $editor = Editor::getInstance();
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
             if (empty($signature)) {
@@ -72,12 +71,6 @@ class Route
                         $originFilename = "https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/upload/raw_image.jpg";
                         $originImage = imagecreatefromjpeg($originFilename);
                         list($width, $height, $type, $attr) = getimagesize($originFilename);
-
-                        if (empty($editor)) {
-                          $replyText = new TextMessageBuilder('$editorの中身空っぽ！');
-                          $bot->replyMessage($event->getReplyToken(), $replyText);
-                          $editor = Editor::getInstance();
-                        }
 
                         $editedImage = $editor->edit($originImage);
 

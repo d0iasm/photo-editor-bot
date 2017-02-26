@@ -16,12 +16,29 @@ class Editor
   }
 
   public function setNum($num){
+    $s3 = \Aws\S3\S3Client::factory();
+    $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
+    $upload = $s3->upload($bucket, 'upload/raw_image.jpg', $tempFile, 'public-read');
+    $result = $s3->putObject(array(
+      'Bucket' => $bucket,
+      'Key'    => 'data/num.txt',
+      'Body'   => $num,
+      'ACL'    => 'public-read'
+    ));
     $this->testNum = $num;
     return 'setNum OK';
   }
 
   public function getNum(){
-    return $this->testNum;
+    $s3 = \Aws\S3\S3Client::factory();
+    $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
+
+    $result = $s3->getObject(array(
+      'Bucket' => $bucket,
+      'Key'    => 'data/num.txt'
+    ));
+
+    return $result['Body'];
   }
 
   public function setFiltertype($filterName) {
