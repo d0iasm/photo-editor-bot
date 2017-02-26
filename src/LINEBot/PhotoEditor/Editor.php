@@ -37,7 +37,7 @@ class Editor
         'Key'    => 'data/num.txt'
       ));
       header("Content-Type: {$result['ContentType']}");
-      return (int)$result['Body'];
+      return strval($result['Body']);
       // return 'OK';
     } catch (S3Exception $e) {
       echo $e->getMessage() . "\n";
