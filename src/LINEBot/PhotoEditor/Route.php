@@ -104,9 +104,11 @@ class Route
                       $act1 = new MessageTemplateActionBuilder($editor->getFiltertype(), IMG_FILTER_NEGATE);
                       $act2 = new MessageTemplateActionBuilder('emboss', 'emboss');
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
-                      $mono2 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
-                      $mono3 = new CarouselColumnTemplateBuilder('モノクロ', 'mono', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
-                      $template = new CarouselTemplateBuilder([$mono, $mono2, $mono3]);
+                      $nega = new CarouselColumnTemplateBuilder('nega', '色を反転させる', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/nega.jpg', [$act1, $act2]);
+                      $removal = new CarouselColumnTemplateBuilder('removal', 'スケッチ風にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/removal.jpg', [$act1, $act2]);
+                      $emboss = new CarouselColumnTemplateBuilder('emboss', 'エンボス加工をする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/emboss.jpg', [$act1, $act2]);
+                      $edge = new CarouselColumnTemplateBuilder('edge', 'エッジを強調する', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/edge.jpg', [$act1, $act2]);
+                      $template = new CarouselTemplateBuilder([$mono, $nega, $removal, $emboss, $edge]);
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
