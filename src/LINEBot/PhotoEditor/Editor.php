@@ -24,7 +24,7 @@ class Editor
     $result = $s3->putObject(array(
       'Bucket' => $bucket,
       'Key'    => 'data/num.txt',
-      'Body'   => '$num'
+      'Body'   => strval($num)
     ));
     return 'setNum OK';
   }
