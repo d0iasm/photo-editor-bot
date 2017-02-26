@@ -21,6 +21,8 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
+$editor = Editor::getInstance();
+
 class Route
 {
     public function register(\Slim\App $app)
@@ -28,8 +30,8 @@ class Route
         // $editor = Editor::getInstance();
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
+            global $editor;
             $bot = $this->bot;
-            $editor = Editor::getInstance();
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
             if (empty($signature)) {
