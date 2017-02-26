@@ -104,13 +104,15 @@ class Route
                     if(strpos($getText, 'ヘルプ') !== false){
 $helpText = <<<"EOT"
 PhotoEditorをご使用いただき、ありがとうございます。
-グループで写真をやりとりする際に送信とフィルター加工を同時にできます。「 フィルター調整 」とメッセージを送るか、下記メニューからフィルターを調整できます。
+写真をやりとりする際に送信とフィルター加工を同時に行います。「 フィルター調整 」とメッセージを送るか、下記メニューからフィルターを調整できます。
 
 ※ グループチャットではメニューが表示されません。
 ※ フィルタリングを行なっている場合、データが受信できないことがあります。
 EOT;
                       $replyText = new TextMessageBuilder($helpText);
                       $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if (strpos($getText, '現在のフィルター') !== false) {
+
                     }
 
                     if(strpos($getText, '> フィルターの調整をする') !== false || strpos($getText, 'フィルター調整') !== false){
@@ -190,13 +192,13 @@ EOT;
 
                     }else if(strpos($getText, '> モザイクを細かくする') !== false){
 
-                      $editor->setFiltertype('pixelate', 3);
+                      $editor->setFiltertype('pixelate', 8);
                       $replyText = new TextMessageBuilder('pixelate加工を細かくしました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
 
                     }else if(strpos($getText, '> モザイクを大きくする') !== false){
 
-                      $editor->setFiltertype('pixelate', 15);
+                      $editor->setFiltertype('pixelate', 20);
                       $replyText = new TextMessageBuilder('pixelate加工を大きくしました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
 
