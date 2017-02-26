@@ -112,8 +112,8 @@ class Route
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'emboss') !== false){
-                      // $editor->setNum(5);
-                      $replyText = new TextMessageBuilder($editor->setNum(5));
+                      $editor->setNum(5);
+                      $replyText = new TextMessageBuilder($editor->getNum());
                       // $replyText = new TextMessageBuilder('emboss加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
