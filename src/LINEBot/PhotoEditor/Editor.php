@@ -3,30 +3,29 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private $filtertype;
+  private static $filtertype = IMG_FILTER_GRAYSCALE;
 
-  private function __construct() {
-    $this->filtertype = IMG_FILTER_GRAYSCALE;
-  }
+  private function __construct() {}
 
   public function setFiltertype($filterName) {
+    static $filtertype = IMG_FILTER_GRAYSCALE;
     if (strpos($filterName, 'gray') !== false) {
-      $this->filtertype = IMG_FILTER_GRAYSCALE;
+      $filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
-      $this->filtertype = IMG_FILTER_NEGATE;
+      $filtertype = IMG_FILTER_NEGATE;
     }else if (strpos($filterName, 'edge') !== false) {
-      $this->filtertype = IMG_FILTER_EDGEDETECT;
+      $filtertype = IMG_FILTER_EDGEDETECT;
     }else if (strpos($filterName, 'removal') !== false) {
-      $this->filtertype = IMG_FILTER_MEAN_REMOVAL;
+      $filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      $this->filtertype = IMG_FILTER_EMBOSS;
+      $filtertype = IMG_FILTER_EMBOSS;
     }
-    $this->filtertype = IMG_FILTER_EMBOSS;
-    return $this->filtertype;
+    $filtertype = IMG_FILTER_EMBOSS;
+    return $filtertype;
   }
 
   public function getFiltertype() {
-    return $this->filtertype;
+    return $filtertype;
   }
 
   public function edit($originImage) {
