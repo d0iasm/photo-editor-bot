@@ -14,6 +14,7 @@ class Editor
   public function setFiltertype($filterName) {
     // static $filtertype = IMG_FILTER_GRAYSCALE;
     // global $filtertype;
+    $filtertype = &$this->getFiltertype();
     if (strpos($filterName, 'gray') !== false) {
       $this->filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
@@ -25,7 +26,7 @@ class Editor
     }else if (strpos($filterName, 'emboss') !== false) {
       $this->filtertype = IMG_FILTER_EMBOSS;
     }
-    return $this->filtertype;
+    return $filtertype;
   }
 
   public function &getFiltertype() {
