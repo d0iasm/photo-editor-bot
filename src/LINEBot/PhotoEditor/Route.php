@@ -112,11 +112,11 @@ class Route
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
                     }else if(strpos($getText, 'mono') !== false){
-                      $editor->setNum('mono');
+                      $editor->setFiltertype('mono');
                       $replyText = new TextMessageBuilder('mono加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if(strpos($getText, 'nega') !== false){
-                      $editor->setNum('nega');
+                      $editor->setFiltertype('nega');
                       $replyText = new TextMessageBuilder('nega加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
