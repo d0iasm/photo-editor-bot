@@ -25,10 +25,11 @@ class Route
 {
     public function register(\Slim\App $app)
     {
-        $editor = Editor::getInstance();
+        // $editor = Editor::getInstance();
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
+            $editor = Editor::getInstance();
             $logger = $this->logger;
             $signature = $req->getHeader(HTTPHeader::LINE_SIGNATURE);
             if (empty($signature)) {
