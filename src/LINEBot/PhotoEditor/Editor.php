@@ -4,21 +4,16 @@ namespace LINE\LINEBot\PhotoEditor;
 class Editor
 {
   private static $instance = null;
-
-  private $filtertype = IMG_FILTER_GRAYSCALE;
-
-  private $testNum = 1;
-
   private function __construct() {}
 
-  public function setNum($num){
+  public function setFilterNum($num){
     $s3 = \Aws\S3\S3Client::factory();
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
     try {
       $result = $s3->putObject(array(
         'Bucket' => $bucket,
-        'Key'    => 'data/num.txt',
+        'Key'    => 'data/filter_num.txt',
         'Body'   => strval($num),
         'ACL'    => 'public-read'
       ));
@@ -27,40 +22,34 @@ class Editor
     }
   }
 
-  public function getNum(){
+  public function setFiltertype($filterName) {
+    if (strpos($filterName, 'mono') !== false) {
+      $this->setFilterNum(IMG_FILTER_GRAYSCALE);
+    }else if (strpos($filterName, 'nega') !== false) {
+      $this->setFilterNum(IMG_FILTER_NEGATE);
+    }else if (strpos($filterName, 'edge') !== false) {
+      $this->setFilterNum(IMG_FILTER_EDGEDETECT);
+    }else if (strpos($filterName, 'removal') !== false) {
+      $this->setFilterNum(IMG_FILTER_MEAN_REMOVAL);
+    }else if (strpos($filterName, 'emboss') !== false) {
+      $this->setFilterNum(IMG_FILTER_EMBOSS);
+    }
+  }
+
+  public function getFiltertype() {
     $s3 = \Aws\S3\S3Client::factory();
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
     try {
       $result = $s3->getObject(array(
         'Bucket' => $bucket,
-        'Key'    => 'data/num.txt'
+        'Key'    => 'data/filter_num.txt'
       ));
       header("Content-Type: {$result['ContentType']}");
       return (int)strval($result['Body']);
-      // return 'OK';
     } catch (S3Exception $e) {
       echo $e->getMessage() . "\n";
     }
-  }
-
-  public function setFiltertype($filterName) {
-    if (strpos($filterName, 'gray') !== false) {
-      $this->filtertype = IMG_FILTER_GRAYSCALE;
-    }else if (strpos($filterName, 'nega') !== false) {
-      $this->filtertype = IMG_FILTER_NEGATE;
-    }else if (strpos($filterName, 'edge') !== false) {
-      $this->filtertype = IMG_FILTER_EDGEDETECT;
-    }else if (strpos($filterName, 'removal') !== false) {
-      $this->filtertype = IMG_FILTER_MEAN_REMOVAL;
-    }else if (strpos($filterName, 'emboss') !== false) {
-      $this->filtertype = IMG_FILTER_EMBOSS;
-    }
-    return $this->filtertype;
-  }
-
-  public function getFiltertype() {
-    return $this->filtertype;
   }
 
   public function edit($originImage) {

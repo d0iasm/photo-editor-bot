@@ -101,8 +101,8 @@ class Route
                 }else if($event instanceof TextMessage) {
                     $getText = $event->getText();
                     if(strpos($getText, '加工の調整をする') !== false){
-                      $act1 = new MessageTemplateActionBuilder('hoge', 'hoge');
-                      $act2 = new MessageTemplateActionBuilder('emboss', 'emboss');
+                      $act1 = new MessageTemplateActionBuilder('nega', '> nega');
+                      $act2 = new MessageTemplateActionBuilder('mono', '> mono');
                       $mono = new CarouselColumnTemplateBuilder('mono', 'モノクロ画像にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/mono.jpg', [$act1, $act2]);
                       $nega = new CarouselColumnTemplateBuilder('nega', '色を反転させる', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/nega.jpg', [$act1, $act2]);
                       $removal = new CarouselColumnTemplateBuilder('removal', 'スケッチ風にする', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/removal.jpg', [$act1, $act2]);
@@ -111,10 +111,13 @@ class Route
                       $template = new CarouselTemplateBuilder([$mono, $nega, $removal, $emboss, $edge]);
                       $templateMessage = new TemplateMessageBuilder('どんな加工にするか調整できます。', $template);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
-                    }else if(strpos($getText, 'emboss') !== false){
-                      $editor->setNum(5);
-                      $replyText = new TextMessageBuilder($editor->getNum());
-                      // $replyText = new TextMessageBuilder('emboss加工に変更しました');
+                    }else if(strpos($getText, 'mono') !== false){
+                      $editor->setNum('mono');
+                      $replyText = new TextMessageBuilder('mono加工に変更しました');
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
+                    }else if(strpos($getText, 'nega') !== false){
+                      $editor->setNum('nega');
+                      $replyText = new TextMessageBuilder('nega加工に変更しました');
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
                 }
