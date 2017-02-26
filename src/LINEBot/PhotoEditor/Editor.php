@@ -12,9 +12,6 @@ class Editor
   }
 
   public function setFiltertype($filterName) {
-    // static $filtertype = IMG_FILTER_GRAYSCALE;
-    // global $filtertype;
-    $filtertype = &$this->getFiltertype();
     if (strpos($filterName, 'gray') !== false) {
       $this->filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
@@ -26,16 +23,16 @@ class Editor
     }else if (strpos($filterName, 'emboss') !== false) {
       $this->filtertype = IMG_FILTER_EMBOSS;
     }
-    return $filtertype;
+    return $this->filtertype;
   }
 
-  public function &getFiltertype() {
+  public function getFiltertype() {
     return $this->filtertype;
   }
 
   public function edit($originImage) {
     ob_start();
-    imagefilter($originImage, &$this->getFiltertype());
+    imagefilter($originImage, $this->getFiltertype());
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();
