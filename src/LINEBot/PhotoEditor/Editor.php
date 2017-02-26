@@ -19,7 +19,7 @@ class Editor
     }else if (strpos($filterName, 'emboss') !== false) {
       self::$filtertype = IMG_FILTER_EMBOSS;
     }
-    self::$filtertype = &IMG_FILTER_EMBOSS;
+    self::$filtertype = IMG_FILTER_EMBOSS;
     return self::$filtertype;
   }
 
@@ -50,7 +50,7 @@ class Editor
     ob_end_clean();
     return $resizedImage;
   }
-
+  
   public static function getInstance() {
     static $instance;
     if ($instance === null) {
