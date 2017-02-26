@@ -6,20 +6,20 @@ class Editor
   // private static $filtertype = IMG_FILTER_GRAYSCALE;
   private $filtertype = IMG_FILTER_GRAYSCALE;
 
-  private $data = array();
+  private $testNum = 1;
 
   private function __construct() {
     // global $filtertype;
     // $filtertype = IMG_FILTER_GRAYSCALE;
   }
 
-  public function __set($name, $value){
-    $this->data[$name] = $value;
-    return 'setOK';
+  public function set($num){
+    $this->testNum = $num;
+    return 'setNum OK';
   }
 
-  public function __get($name){
-    return $this->data[$name];
+  public function getNum(){
+    return $this->testNum;
   }
 
   public function setFiltertype($filterName) {
