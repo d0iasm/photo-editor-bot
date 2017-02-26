@@ -13,7 +13,7 @@ class Editor
     // $filtertype = IMG_FILTER_GRAYSCALE;
   }
 
-  public function set($num){
+  public function setNum($num){
     $this->testNum = $num;
     return 'setNum OK';
   }
