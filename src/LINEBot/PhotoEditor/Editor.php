@@ -32,16 +32,13 @@ class Editor
     $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
     try {
-
       $result = $s3->getObject(array(
         'Bucket' => $bucket,
         'Key'    => 'data/num.txt'
       ));
-
-      // header("Content-Type: {$result['ContentType']}");
-      // return $result['Body'];
-      return 'OK';
-
+      header("Content-Type: {$result['ContentType']}");
+      return (int)$result['Body'];
+      // return 'OK';
     } catch (S3Exception $e) {
       echo $e->getMessage() . "\n";
     }
