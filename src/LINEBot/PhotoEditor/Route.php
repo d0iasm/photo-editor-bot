@@ -112,7 +112,28 @@ EOT;
                       $replyText = new TextMessageBuilder($helpText);
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }else if (strpos($getText, '現在のフィルター') !== false) {
+                      $currentFilter = array(
+                        'num' => $editor->getFiltertype()[0],
+                        'arg' => $editor->getFiltertype()[1]
+                      );
 
+                      $currentFilterName;
+                      if ($currentFilter['num'] == IMG_FILTER_BRIGHTNESS) {
+                        $currentFilterName = 'bright';
+                      }else if ($currentFilter['num'] == IMG_FILTER_GAUSSIAN_BLUR) {
+                        $currentFilterName = 'blur';
+                      }else if ($currentFilter['num'] == IMG_FILTER_MEAN_REMOVAL) {
+                        $currentFilterName = 'sketch';
+                      }else if ($currentFilter['num'] == IMG_FILTER_PIXELATE) {
+                        $currentFilterName = 'pixelate';
+                      }else if ($currentFilter['num'] == IMG_FILTER_GRAYSCALE) {
+                        $currentFilterName = 'mono';
+                      }
+$currentFilterText = <<<"EOT"
+現在のフィルターは { $currentFilterName } です。
+EOT;
+                      $replyText = new TextMessageBuilder($currentFilterText);
+                      $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
 
                     if(strpos($getText, '> フィルターの調整をする') !== false || strpos($getText, 'フィルター調整') !== false){
