@@ -24,7 +24,7 @@ class Editor
   }
 
   public function getFiltertype() {
-    return $this->setFiltertype('none');
+    return $this->setFiltertype('emboss');
   }
 
   public function edit($originImage) {
