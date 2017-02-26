@@ -3,44 +3,33 @@ namespace LINE\LINEBot\PhotoEditor;
 
 class Editor
 {
-  private $filtertype = IMG_FILTER_GRAYSCALE;
-  // public $num = 0;
+  private static $filtertype = IMG_FILTER_GRAYSCALE;
 
   private function __construct() {}
 
-  // public function addNum(){
-  //   $editor->num += 3;
-  // }
-  //
-  // public function testMethod()
-  // {
-  //   $editor = self::getInstance();
-  //   $editor->addNum();
-  //   return $editor->num;
-  // }
-
-  public static function setFiltertype($filterName) {
-    $editor = self::getInstance();
+  public function setFiltertype($filterName) {
     if (strpos($filterName, 'gray') !== false) {
-      $editor->filtertype = IMG_FILTER_GRAYSCALE;
+      self::$filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
-      $editor->filtertype = IMG_FILTER_NEGATE;
+      self::$filtertype = IMG_FILTER_NEGATE;
     }else if (strpos($filterName, 'edge') !== false) {
-      $editor->filtertype = IMG_FILTER_EDGEDETECT;
+      self::$filtertype = IMG_FILTER_EDGEDETECT;
     }else if (strpos($filterName, 'removal') !== false) {
-      $editor->filtertype = IMG_FILTER_MEAN_REMOVAL;
+      self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      $editor->filtertype = IMG_FILTER_EMBOSS;
+      self::$filtertype = IMG_FILTER_EMBOSS;
+    }else{
+      self::$filtertype = IMG_FILTER_EDGEDETECT;
     }
   }
 
   public function getFiltertype() {
-    return $this->filtertype;
+    return self::$filtertype;
   }
 
   public function edit($originImage) {
     ob_start();
-    imagefilter($originImage, $this->getFiltertype());
+    imagefilter($originImage, self::$filtertype);
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();
