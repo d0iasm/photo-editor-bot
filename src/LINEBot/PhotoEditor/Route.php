@@ -147,8 +147,8 @@ class Route
                     }else if(strpos($getText, '> モザイクをかける') !== false){
 
                       $pixelateAct1 = new MessageTemplateActionBuilder('細かく', '> モザイクを細かくする');
-                      $pixelateAct3 = new MessageTemplateActionBuilder('大きく', '> モザイクを大きくする');
-                      $pixelateDetail = new ButtonTemplateBuilder('pixelate', 'モザイクの大きさの調整ができます', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pixelate.jpg', [$pixelateAct1, $pixelateAct2, $pixelateAct3]);
+                      $pixelateAct2 = new MessageTemplateActionBuilder('大きく', '> モザイクを大きくする');
+                      $pixelateDetail = new ButtonTemplateBuilder('pixelate', 'モザイクの大きさの調整ができます', 'https://s3-ap-northeast-1.amazonaws.com/photo-editor-bot/pixelate.jpg', [$pixelateAct1, $pixelateAct2]);
                       $templateMessage = new TemplateMessageBuilder('モザイクの大きさの調整ができます', $pixelateDetail);
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
 
