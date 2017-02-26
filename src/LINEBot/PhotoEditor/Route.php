@@ -23,9 +23,9 @@ use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Route
 {
+    static $editor = Editor::getInstance();
     public function register(\Slim\App $app)
     {
-        // static $editor = Editor::getInstance();
         $app->post('/callback', function (\Slim\Http\Request $req, \Slim\Http\Response $res) {
 
             $bot = $this->bot;
