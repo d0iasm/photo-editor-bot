@@ -8,7 +8,7 @@ class Editor
 
   private $filtertype = IMG_FILTER_GRAYSCALE;
 
-  private $testNum = 1;
+  private static $testNum = 1;
 
   private function __construct() {
     // global $filtertype;
@@ -16,12 +16,12 @@ class Editor
   }
 
   public function setNum($num){
-    $this->testNum = $num;
+    self::$testNum = $num;
     return 'setNum OK';
   }
 
   public function getNum(){
-    return $this->testNum;
+    return self::$testNum;
   }
 
   public function setFiltertype($filterName) {
