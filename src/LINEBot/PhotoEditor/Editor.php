@@ -9,15 +9,15 @@ class Editor
 
   public function setFiltertype($filterName) {
     if (strpos($filterName, 'gray') !== false) {
-      self::$filtertype = &IMG_FILTER_GRAYSCALE;
+      self::$filtertype = IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
-      self::$filtertype = &IMG_FILTER_NEGATE;
+      self::$filtertype = IMG_FILTER_NEGATE;
     }else if (strpos($filterName, 'edge') !== false) {
-      self::$filtertype = &IMG_FILTER_EDGEDETECT;
+      self::$filtertype = IMG_FILTER_EDGEDETECT;
     }else if (strpos($filterName, 'removal') !== false) {
-      self::$filtertype = &IMG_FILTER_MEAN_REMOVAL;
+      self::$filtertype = IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      self::$filtertype = &IMG_FILTER_EMBOSS;
+      self::$filtertype = IMG_FILTER_EMBOSS;
     }
     self::$filtertype = &IMG_FILTER_EMBOSS;
     return self::$filtertype;
