@@ -113,7 +113,7 @@ EOT;
                       $bot->replyMessage($event->getReplyToken(), $replyText);
                     }
 
-                    if(strpos($getText, '> 加工の調整をする') !== false || strpos($getText, 'フィルター調整') !== false){
+                    if(strpos($getText, '> フィルターの調整をする') !== false || strpos($getText, 'フィルター調整') !== false){
                       $commonAct = new MessageTemplateActionBuilder('変更しない', '> 変更しない');
 
                       $brightAct = new MessageTemplateActionBuilder('このフィルターを使う', '> 輝度を変更する');
