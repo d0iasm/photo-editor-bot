@@ -159,7 +159,7 @@ EOT;
                       $bot->replyMessage($event->getReplyToken(), $templateMessage);
 
                     }else if(strpos($getText, '> 輝度を変更する') !== false){
-                      //
+
                       $brightAct1 = new MessageTemplateActionBuilder('高輝度', '> 輝度を高くする');
                       $brightAct2 = new MessageTemplateActionBuilder('中輝度', '> 輝度を戻す');
                       $brightAct3 = new MessageTemplateActionBuilder('低輝度', '> 輝度を低くする');
