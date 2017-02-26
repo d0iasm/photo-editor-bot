@@ -15,6 +15,7 @@ class Editor
 
   public function setNum($num){
     $this->testNum = $num;
+    return $this->testNum;
   }
 
   public function getNum(){
