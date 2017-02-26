@@ -1,37 +1,35 @@
 <?php
 namespace LINE\LINEBot\PhotoEditor;
 
-$filtertype = IMG_FILTER_GRAYSCALE;
-
 class Editor
 {
-  // private static $filtertype = IMG_FILTER_GRAYSCALE;
+  private static $filtertype = IMG_FILTER_GRAYSCALE;
 
   private function __construct() {}
 
   public function setFiltertype($filterName) {
     if (strpos($filterName, 'gray') !== false) {
-      $GLOBALS['filtertype'] = IMG_FILTER_GRAYSCALE;
+      self::$filtertype = &IMG_FILTER_GRAYSCALE;
     }else if (strpos($filterName, 'nega') !== false) {
-      $GLOBALS['filtertype'] = IMG_FILTER_NEGATE;
+      self::$filtertype = &IMG_FILTER_NEGATE;
     }else if (strpos($filterName, 'edge') !== false) {
-      $GLOBALS['filtertype'] = IMG_FILTER_EDGEDETECT;
+      self::$filtertype = &IMG_FILTER_EDGEDETECT;
     }else if (strpos($filterName, 'removal') !== false) {
-      $GLOBALS['filtertype'] = IMG_FILTER_MEAN_REMOVAL;
+      self::$filtertype = &IMG_FILTER_MEAN_REMOVAL;
     }else if (strpos($filterName, 'emboss') !== false) {
-      $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
+      self::$filtertype = &IMG_FILTER_EMBOSS;
     }
-    $GLOBALS['filtertype'] = IMG_FILTER_EMBOSS;
-    return $GLOBALS['filtertype'];
+    self::$filtertype = &IMG_FILTER_EMBOSS;
+    return self::$filtertype;
   }
 
   public function getFiltertype() {
-    return $GLOBALS['filtertype'];
+    return self::$filtertype;
   }
 
   public function edit($originImage) {
     ob_start();
-    imagefilter($originImage, $GLOBALS['filtertype']);
+    imagefilter($originImage, self::$filtertype);
     imagejpeg($originImage);
     $editedImage = ob_get_contents();
     ob_end_clean();
