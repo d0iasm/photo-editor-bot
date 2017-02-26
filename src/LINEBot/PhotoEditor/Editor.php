@@ -23,16 +23,16 @@ class Editor
   }
 
   public function setFiltertype($filterName) {
-    if (strpos($filterName, 'mono') !== false) {
-      $this->setFilterNum(IMG_FILTER_GRAYSCALE);
-    }else if (strpos($filterName, 'nega') !== false) {
-      $this->setFilterNum(IMG_FILTER_NEGATE);
-    }else if (strpos($filterName, 'edge') !== false) {
-      $this->setFilterNum(IMG_FILTER_EDGEDETECT);
+    if (strpos($filterName, 'bright') !== false) {
+      $this->setFilterNum(IMG_FILTER_BRIGHTNESS);
+    }else if (strpos($filterName, 'blur') !== false) {
+      $this->setFilterNum(IMG_FILTER_GAUSSIAN_BLUR);
     }else if (strpos($filterName, 'removal') !== false) {
       $this->setFilterNum(IMG_FILTER_MEAN_REMOVAL);
-    }else if (strpos($filterName, 'emboss') !== false) {
-      $this->setFilterNum(IMG_FILTER_EMBOSS);
+    }else if (strpos($filterName, 'pixelate') !== false) {
+      $this->setFilterNum(IMG_FILTER_PIXELATE);
+    }else if (strpos($filterName, 'mono') !== false) {
+      $this->setFilterNum(IMG_FILTER_GRAYSCALE);
     }
   }
 
