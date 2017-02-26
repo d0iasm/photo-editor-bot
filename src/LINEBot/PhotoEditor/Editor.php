@@ -1,10 +1,11 @@
 <?php
 namespace LINE\LINEBot\PhotoEditor;
 
+private $filtertype;
+
 class Editor
 {
   // private static $filtertype = IMG_FILTER_GRAYSCALE;
-  private $filtertype;
 
   private function __construct() {
     global $filtertype;
