@@ -1,4 +1,5 @@
 # PhotoEditor
+<a href="https://line.me/R/ti/p/%40who6837x"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a>
 写真の加工と送信を同時に行うLINEbot
 
 ## Description
@@ -12,5 +13,4 @@
 - 「フィルター確認」とメッセージを送る：現在の設定フィルターを確認できます。
 - 「ヘルプ」とメッセージを送る：使い方や注意事項について確認できます。
 
-<a href="https://line.me/R/ti/p/%40who6837x"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a>
 <img src="http://qr-official.line.me/L/I0frwCTmKS.png">
